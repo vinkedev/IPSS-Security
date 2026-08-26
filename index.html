@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPSS Security — Expertise Sécurité Professionnelle à Ouagadougou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#081226;
+    --navy-800:#0F2647;
+    --navy-700:#173463;
+    --orange-600:#E8630C;
+    --orange-500:#F17B1F;
+    --orange-100:#FDECD8;
+    --paper:#F6F4EF;
+    --white:#FFFFFF;
+    --ink:#14181F;
+    --ink-muted:#5B6472;
+    --line:#E4E0D6;
+    --radius:2px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-weight:600;
+    line-height:1.1;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  /* ---- viewfinder bracket signature ---- */
+  .bracket{position:relative;}
+  .bracket::before,.bracket::after,.bracket .c2,.bracket .c3{
+    content:"";position:absolute;width:16px;height:16px;
+    border-color:var(--orange-600);border-style:solid;border-width:0;
+    transition:width .25s ease, height .25s ease, opacity .25s ease;
+    opacity:.55;
+  }
+  .bracket::before{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px;}
+  .bracket::after{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px;}
+  .bracket .c2{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px;}
+  .bracket .c3{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px;}
+  .bracket:hover::before,.bracket:hover::after,.bracket:hover .c2,.bracket:hover .c3{
+    width:22px;height:22px;opacity:1;
+  }
+
+  /* ---- utility strip ---- */
+  .utility-bar{
+    background:var(--navy-950);color:#C9D3E4;font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;letter-spacing:.02em;
+  }
+  .utility-bar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 24px;flex-wrap:wrap;gap:6px 20px;
+  }
+  .utility-bar span{display:inline-flex;align-items:center;gap:6px;}
+  .utility-bar a:hover{color:var(--orange-500);}
+  .utility-bar .status{color:var(--orange-500);}
+
+  /* ---- header ---- */
+  header{
+    position:sticky;top:0;z-index:50;background:var(--white);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .logo{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--navy-950);
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--orange-600);
+  }
+  .brand .logo svg{width:24px;height:24px;}
+  .brand .name{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;letter-spacing:.03em;line-height:1;}
+  .brand .name small{display:block;font-family:'IBM Plex Mono',monospace;text-transform:none;letter-spacing:.04em;font-size:10.5px;color:var(--ink-muted);font-weight:400;margin-top:3px;}
+  nav.links{display:flex;gap:32px;align-items:center;}
+  nav.links a{font-size:14px;font-weight:500;color:var(--ink);position:relative;padding:4px 0;}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--orange-600);transition:width .2s ease;}
+  nav.links a:hover::after{width:100%;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--orange-600);color:var(--white);
+    font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+    font-size:13.5px;padding:12px 22px;border:none;cursor:pointer;
+    clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  }
+  .btn:hover{background:var(--navy-950);}
+  .btn.outline{background:transparent;border:1.5px solid var(--white);color:var(--white);}
+  .btn.outline:hover{background:var(--white);color:var(--navy-950);}
+  .btn-ghost{background:transparent;border:1.5px solid var(--navy-950);color:var(--navy-950);}
+  .btn-ghost:hover{background:var(--navy-950);color:var(--white);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--navy-950);}
+
+  /* ---- hero ---- */
+  .hero{position:relative;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy-950);}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:.55;}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,18,38,.55) 0%, rgba(8,18,38,.65) 45%, rgba(8,18,38,.97) 100%);}
+  .hero-content{position:relative;color:var(--white);padding:120px 24px 72px;max-width:1160px;margin:0 auto;width:100%;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
+    color:var(--orange-500);text-transform:uppercase;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;background:var(--orange-600);border-radius:50%;}
+  .hero h1{font-size:clamp(38px,6vw,64px);max-width:780px;}
+  .hero h1 em{font-style:normal;color:var(--orange-500);}
+  .hero p{font-size:17px;color:#D7DEEA;max-width:520px;margin:20px 0 32px;font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+
+  /* ---- trust ticker ---- */
+  .ticker{background:var(--orange-600);color:var(--white);padding:11px 0;overflow:hidden;}
+  .ticker .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 28px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;}
+
+  /* ---- section shell ---- */
+  section{padding:96px 0;}
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--orange-600);margin-bottom:12px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-label::before{content:"";width:26px;height:2px;background:var(--orange-600);}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px);max-width:560px;}
+  .section-head p{color:var(--ink-muted);max-width:380px;font-size:15px;text-transform:none;font-family:'Inter',sans-serif;letter-spacing:0;}
+
+  /* ---- services ---- */
+  .services{background:var(--paper);}
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
+  .service-card{background:var(--white);padding:36px 30px;}
+  .service-card .num{font-family:'IBM Plex Mono',monospace;color:var(--orange-600);font-size:13px;margin-bottom:22px;display:block;}
+  .service-card h3{font-size:19px;margin-bottom:10px;}
+  .service-card p{color:var(--ink-muted);font-size:14.5px;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif;}
+
+  /* ---- about ---- */
+  .about{display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center;}
+  .about-media{position:relative;padding:14px;}
+  .about-media img{width:100%;height:440px;object-fit:cover;}
+  .badge-card{
+    position:absolute;bottom:-24px;left:-24px;background:var(--navy-950);color:var(--white);
+    padding:20px 22px;max-width:260px;border-left:4px solid var(--orange-600);
+  }
+  .badge-card .mono{font-size:11.5px;color:var(--orange-500);letter-spacing:.04em;display:block;margin-bottom:6px;}
+  .badge-card p{font-size:13.5px;color:#D7DEEA;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif;}
+  .about-copy h2{font-size:clamp(26px,3.2vw,36px);margin-bottom:22px;}
+  .about-copy p{color:var(--ink-muted);font-size:15.5px;margin-bottom:16px;}
+  .about-copy p strong{color:var(--ink);font-weight:600;}
+  .about-points{list-style:none;margin-top:26px;display:grid;gap:14px;}
+  .about-points li{display:flex;gap:12px;font-size:14.5px;align-items:flex-start;}
+  .about-points li::before{content:"";flex:none;width:9px;height:9px;background:var(--orange-600);margin-top:6px;}
+
+  /* ---- sectors ---- */
+  .sectors{background:var(--navy-950);color:var(--white);}
+  .sectors .section-label{color:var(--orange-500);}
+  .sectors .section-head p{color:#AEB9CC;}
+  .sector-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14);}
+  .sector-row div{padding:24px 8px 24px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:.02em;}
+  .sector-row div span{display:block;font-family:'IBM Plex Mono',monospace;color:var(--orange-500);font-size:11.5px;text-transform:none;margin-bottom:8px;}
+
+  /* ---- contact ---- */
+  .contact{background:var(--paper);}
+  .contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;border:1px solid var(--line);}
+  .contact-info{background:var(--navy-950);color:var(--white);padding:48px 40px;}
+  .contact-info h3{font-size:24px;margin-bottom:14px;}
+  .contact-info>p{color:#AEB9CC;font-size:14.5px;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif;margin-bottom:36px;}
+  .info-item{display:flex;gap:14px;margin-bottom:26px;align-items:flex-start;}
+  .info-item .ico{
+    flex:none;width:38px;height:38px;border:1.5px solid var(--orange-600);
+    display:flex;align-items:center;justify-content:center;color:var(--orange-500);
+  }
+  .info-item .label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8593AC;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+  .info-item .value{font-size:15.5px;font-weight:500;}
+  .info-item .value a:hover{color:var(--orange-500);}
+  .social-row{display:flex;gap:10px;margin-top:38px;}
+  .social-row a{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+  }
+  .social-row a:hover{background:var(--orange-600);border-color:var(--orange-600);}
+
+  .contact-form{background:var(--white);padding:48px 44px;}
+  .contact-form h3{font-size:20px;margin-bottom:6px;}
+  .contact-form>p{color:var(--ink-muted);font-size:14px;text-transform:none;letter-spacing:0;margin-bottom:30px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);margin-bottom:7px;}
+  .field input,.field select,.field textarea{
+    width:100%;border:1px solid var(--line);background:var(--white);
+    padding:12px 14px;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--orange-600);outline-offset:1px;border-color:var(--orange-600);}
+  .field textarea{resize:vertical;min-height:100px;}
+  .form-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px;flex-wrap:wrap;}
+  .form-note{font-size:12.5px;color:var(--ink-muted);}
+  .form-status{font-size:13px;font-family:'IBM Plex Mono',monospace;margin-top:14px;min-height:18px;}
+
+  /* ---- map strip ---- */
+  .map-strip{border-top:1px solid var(--line);}
+  .map-strip iframe{width:100%;height:340px;border:0;display:block;filter:grayscale(.25);}
+
+  /* ---- footer ---- */
+  footer{background:var(--navy-950);color:#AEB9CC;padding:64px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.12);}
+  .foot-brand .brand .name{color:var(--white);}
+  .foot-brand p{font-size:13.5px;color:#8593AC;margin-top:16px;max-width:280px;}
+  footer h4{color:var(--white);font-size:13px;letter-spacing:.06em;margin-bottom:18px;}
+  footer ul{list-style:none;display:grid;gap:11px;}
+  footer ul a{font-size:14px;color:#AEB9CC;}
+  footer ul a:hover{color:var(--orange-500);}
+  .foot-bottom{display:flex;justify-content:space-between;padding:24px 0;font-size:12.5px;color:#6E7B93;flex-wrap:wrap;gap:10px;font-family:'IBM Plex Mono',monospace;}
+
+  .wa-float{
+    position:fixed;right:22px;bottom:22px;z-index:60;
+    width:56px;height:56px;border-radius:50%;background:#25D366;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.28);
+  }
+  .wa-float:hover{filter:brightness(1.05);}
+
+  @media (max-width:920px){
+    .about,.contact-grid,.foot-grid{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .sector-row{grid-template-columns:repeat(2,1fr);}
+    nav.links{display:none;}
+    .menu-toggle{display:block;}
+    .about-media img{height:320px;}
+    .form-row{grid-template-columns:1fr;}
+    .foot-grid{gap:32px;}
+  }
+  @media (max-width:560px){
+    .service-grid{grid-template-columns:1fr;}
+    .hero-content{padding:90px 20px 56px;}
+    section{padding:64px 0;}
+    .contact-info,.contact-form{padding:34px 26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="wrap">
+    <span><span class="status">●</span> Intervention 24h/24 — Ouagadougou &amp; environs</span>
+    <span>
+      <a href="tel:+22656513009">📍 Ouagadougou, Secteur 2</a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href="tel:+22656513009">☎ +226 56 51 30 09</a>
+    </span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 6V11C3 16 6.75 20.5 12 22C17.25 20.5 21 16 21 11V6L12 2Z" stroke="#F17B1F" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M8.5 11.5L11 14L15.5 8.5" stroke="#F17B1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="name">IPSS SECURITY<small>Sûreté &amp; Protection — Ouagadougou</small></div>
+    </div>
+    <nav class="links">
+      <a href="#accueil">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#apropos">À propos</a>
+      <a href="#secteurs">Secteurs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn">Demander un devis</a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="accueil" style="padding:0;">
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Sûreté &bull; Surveillance &bull; Intervention</div>
+    <h1>Protection Intégrale pour vos <em>Biens et Personnes</em></h1>
+    <p>IPSS Security fournit des services professionnels de gardiennage, vidéosurveillance et contrôle d'accès sur mesure à Ouagadougou et dans l'ensemble du Burkina Faso.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn">Demander une étude</a>
+      <a href="#services" class="btn outline">Nos Services</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="wrap">
+    <span>✓ Agents Qualifiés &amp; Formés</span>
+    <span>✓ Surveillance 24/7</span>
+    <span>✓ Intervention Rapide</span>
+    <span>✓ Technologies de Pointe</span>
+  </div>
+</div>
+
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="section-label">Nos Prestations</div>
+    <div class="section-head">
+      <h2>Solutions sur mesure pour entreprises et particuliers</h2>
+      <p>Nos dispositifs de sécurité s'adaptent à vos risques et à vos exigences opérationnelles.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card bracket">
+        <span class="num">01 // GARDIENNAGE</span>
+        <h3>Surveillance physique</h3>
+        <p>Agents de sécurité qualifiés pour la protection des sites industriels, résidences et locaux commerciaux.</p>
+        <div class="c2"></div><div class="c3"></div>
+      </div>
+      <div class="service-card bracket">
+        <span class="num">02 // SÉCURITÉ ÉLECTRONIQUE</span>
+        <h3>Vidéosurveillance &amp; Alarme</h3>
+        <p>Installation et télésurveillance 24/7 par caméras haute définition, détecteurs d'intrusion et systèmes d'alarme.</p>
+        <div class="c2"></div><div class="c3"></div>
+      </div>
+      <div class="service-card bracket">
+        <span class="num">03 // CONTRÔLE D'ACCÈS</span>
+        <h3>Gestion des flux</h3>
+        <p>Systèmes biométriques, badges de proximité et tourniquets pour filtrer et sécuriser les entrées de vos infrastructures.</p>
+        <div class="c2"></div><div class="c3"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Contactez IPSS Security</h3>
+        <p>Prenez contact avec nos experts en sécurité pour une évaluation gratuite de vos besoins.</p>
+        <div class="info-item">
+          <div class="ico">📍</div>
+          <div>
+            <div class="label">Localisation</div>
+            <div class="value">Ouagadougou, Secteur 2, Burkina Faso</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ico">☎</div>
+          <div>
+            <div class="label">Téléphone</div>
+            <div class="value"><a href="tel:+22656513009">+226 56 51 30 09</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Demander un Devis</h3>
+        <p>Remplissez le formulaire ci-dessous et notre équipe vous recontactera rapidement.</p>
+        <form action="#" method="post">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Nom complet</label>
+              <input type="text" id="name" name="name" placeholder="Votre nom" required>
+            </div>
+            <div class="field">
+              <label for="phone">Téléphone</label>
+              <input type="tel" id="phone" name="phone" placeholder="+226 -- -- -- --" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="service">Service souhaité</label>
+            <select id="service" name="service">
+              <option>Gardiennage &amp; Surveillance</option>
+              <option>Vidéosurveillance &amp; Alarme</option>
+              <option>Contrôle d'accès</option>
+              <option>Autre prestation</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message / Précisions</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre besoin..."></textarea>
+          </div>
+          <button type="submit" class="btn">Envoyer la demande</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>&copy; IPSS Security. Tous droits réservés.</span>
+      <span>Ouagadougou, Burkina Faso</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
