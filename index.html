@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPSS Security — Expertise Sécurité Professionnelle à Ouagadougou</title>
+  <title>IPSS — International Protective Services and Security</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -306,16 +306,6 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
     }
-    .btn-ghost {
-      background: transparent;
-      border: 1.5px solid var(--navy-950);
-      color: var(--navy-950);
-      box-shadow: none;
-    }
-    .btn-ghost:hover {
-      background: var(--navy-950);
-      color: var(--white);
-    }
     .menu-toggle {
       display: none;
       background: none;
@@ -461,7 +451,7 @@
     }
     .service-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       background: var(--line);
       border: 1px solid var(--line);
@@ -520,7 +510,7 @@
       background: var(--navy-950);
       color: var(--white);
       padding: 20px 22px;
-      max-width: 260px;
+      max-width: 280px;
       border-left: 4px solid var(--orange-600);
       border-radius: var(--radius);
     }
@@ -817,21 +807,14 @@
       resize: vertical;
       min-height: 100px;
     }
-    .form-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    .contact-form .btn {
+      width: 100%;
+      justify-content: center;
     }
     .form-note {
       font-size: 12.5px;
       color: var(--ink-muted);
-    }
-    .contact-form .btn {
-      width: 100%;
-      justify-content: center;
+      margin-top: 8px;
     }
     /* ---- Footer ---- */
     footer {
@@ -901,6 +884,11 @@
       flex-wrap: wrap;
       gap: 10px;
       font-family: 'IBM Plex Mono', monospace;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 24px;
+    }
+    .foot-bottom .cert {
+      color: var(--orange-500);
     }
     /* ---- WhatsApp Float ---- */
     .wa-float {
@@ -928,14 +916,16 @@
       fill: white;
     }
     /* ---- Responsive ---- */
+    @media (max-width: 1024px) {
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     @media (max-width: 920px) {
       .about,
       .contact-grid,
       .foot-grid {
         grid-template-columns: 1fr;
-      }
-      .service-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
       .sector-row {
         grid-template-columns: repeat(2, 1fr);
@@ -962,7 +952,7 @@
         gap: 32px;
       }
     }
-    @media (max-width: 560px) {
+    @media (max-width: 640px) {
       .service-grid {
         grid-template-columns: 1fr;
       }
@@ -971,6 +961,9 @@
       }
       .counter-grid {
         grid-template-columns: 1fr 1fr;
+      }
+      .sector-row {
+        grid-template-columns: 1fr;
       }
       .hero-content {
         padding: 90px 20px 56px;
@@ -981,9 +974,6 @@
       .contact-info,
       .contact-form {
         padding: 34px 26px;
-      }
-      .sector-row {
-        grid-template-columns: 1fr;
       }
       .splash-title {
         font-size: 30px;
@@ -1012,7 +1002,7 @@
   <!-- Utility Bar -->
   <div class="utility-bar">
     <div class="wrap">
-      <span><span class="status">●</span> Intervention 24h/24 — Ouagadougou &amp; environs</span>
+      <span><span class="status">●</span> Intervention 24h/24 — Ouagadougou, Secteur 2</span>
       <span>
         <a href="tel:+22656513009">📍 Ouagadougou, Secteur 2</a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -1028,13 +1018,12 @@
         <div class="logo">
           <img src="ipss/logo.jpg" alt="IPSS Security" />
         </div>
-        <div class="name">IPSS SECURITY<small>Sûreté &amp; Protection — Ouagadougou</small></div>
+        <div class="name">IPSS SECURITY<small>International Protective Services &amp; Security — Ouagadougou</small></div>
       </div>
       <nav class="links">
         <a href="#accueil">Accueil</a>
         <a href="#services">Services</a>
         <a href="#apropos">À propos</a>
-        <a href="#secteurs">Secteurs</a>
         <a href="#contact">Contact</a>
       </nav>
       <a href="#contact" class="btn">Demander un devis</a>
@@ -1047,9 +1036,9 @@
     <img class="bg-img" src="ipss/acceui.jpg" alt="Accueil IPSS Security" />
     <div class="hero-scrim"></div>
     <div class="hero-content">
-      <div class="eyebrow">Sûreté &bull; Surveillance &bull; Intervention</div>
-      <h1>Protection Intégrale pour vos <em>Biens et Personnes</em></h1>
-      <p>IPSS Security fournit des services professionnels de gardiennage, vidéosurveillance et contrôle d'accès sur mesure à Ouagadougou et dans l'ensemble du Burkina Faso.</p>
+      <div class="eyebrow">Sûreté &bull; Surveillance &bull; Protection</div>
+      <h1>Pour votre sécurité et celle de vos <em>biens</em>, faites nous confiance !</h1>
+      <p>IPSS (International Protective Services and Security) est une société de sécurité privée basée à Ouagadougou, reconnue par l'arrêté N°2021-00399/MSECU/CAB/DR du 20/05/2021.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn">Demander une étude</a>
         <a href="#services" class="btn outline">Nos Services</a>
@@ -1060,10 +1049,10 @@
   <!-- Ticker -->
   <div class="ticker">
     <div class="wrap">
-      <span>✓ Agents Qualifiés &amp; Formés</span>
-      <span>✓ Surveillance 24/7</span>
-      <span>✓ Intervention Rapide</span>
-      <span>✓ Technologies de Pointe</span>
+      <span>✓ Gardiennage &amp; Surveillance</span>
+      <span>✓ Formations &amp; Garde rapprochée</span>
+      <span>✓ Escorte &amp; Protection</span>
+      <span>✓ Vente &amp; Location de matériels</span>
     </div>
   </div>
 
@@ -1072,24 +1061,29 @@
     <div class="wrap">
       <div class="section-label reveal">Nos Prestations</div>
       <div class="section-head reveal">
-        <h2>Solutions sur mesure pour entreprises et particuliers</h2>
-        <p>Nos dispositifs de sécurité s'adaptent à vos risques et à vos exigences opérationnelles.</p>
+        <h2>Des services complets pour votre sécurité</h2>
+        <p>IPSS vous propose une gamme étendue de prestations adaptées à tous vos besoins.</p>
       </div>
       <div class="service-grid">
         <div class="service-card reveal">
           <span class="num">01 // GARDIENNAGE</span>
           <h3>Surveillance physique</h3>
-          <p>Agents de sécurité qualifiés pour la protection des sites industriels, résidences et locaux commerciaux.</p>
+          <p>Agents de sécurité qualifiés pour la protection de vos sites, résidences et locaux commerciaux.</p>
         </div>
         <div class="service-card reveal">
-          <span class="num">02 // SÉCURITÉ ÉLECTRONIQUE</span>
-          <h3>Vidéosurveillance &amp; Alarme</h3>
-          <p>Installation et télésurveillance 24/7 par caméras haute définition, détecteurs d'intrusion et systèmes d'alarme.</p>
+          <span class="num">02 // FORMATIONS</span>
+          <h3>Formation &amp; Sensibilisation</h3>
+          <p>Modules de formation en sécurité, gestion de crise et premiers secours pour vos équipes.</p>
         </div>
         <div class="service-card reveal">
-          <span class="num">03 // CONTRÔLE D'ACCÈS</span>
-          <h3>Gestion des flux</h3>
-          <p>Systèmes biométriques, badges de proximité et tourniquets pour filtrer et sécuriser les entrées de vos infrastructures.</p>
+          <span class="num">03 // GARDE RAPPROCHÉE</span>
+          <h3>Protection individuelle</h3>
+          <p>Agents spécialisés pour la protection rapprochée de personnalités, cadres et familles.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="num">04 // ESCORTE &amp; MATÉRIEL</span>
+          <h3>Escorte &amp; Équipements</h3>
+          <p>Escorte de valeurs et de personnes. Vente et location de caméras, barbelés, alarmes, etc.</p>
         </div>
       </div>
     </div>
@@ -1101,19 +1095,19 @@
       <div class="about-media reveal">
         <img src="ipss/ima.jpg" alt="À propos IPSS Security" />
         <div class="badge-card">
-          <span class="mono">+ 10 ANS D'EXPÉRIENCE</span>
-          <p>Nous intervenons sur tout le territoire burkinabè avec des équipes formées aux normes internationales.</p>
+          <span class="mono">ARRÊTÉ N°2021-00399</span>
+          <p>Reconnue par l'État burkinabè pour ses services de sécurité privée depuis le 20/05/2021.</p>
         </div>
       </div>
       <div class="about-copy reveal">
         <div class="section-label">À propos</div>
-        <h2>Une expertise locale au service de votre sécurité</h2>
-        <p><strong>IPSS Security</strong> est une société burkinabè spécialisée dans la protection des biens et des personnes. Nous combinons des agents hautement qualifiés et des technologies de pointe pour offrir des prestations fiables et réactives.</p>
+        <h2>International Protective Services and Security</h2>
+        <p><strong>IPSS</strong> est une société de sécurité privée basée à <strong>Ouagadougou, Secteur 2</strong>. Nous intervenons sur tout le territoire burkinabè avec des équipes formées et du matériel de pointe.</p>
         <p>Notre engagement : une réponse rapide, une présence dissuasive et un accompagnement personnalisé pour chaque client, qu'il s'agisse d'un particulier, d'une entreprise ou d'une institution.</p>
         <ul class="about-points">
           <li>Personnel formé aux gestes de premiers secours et à la gestion de crise</li>
-          <li>Matériel certifié et maintenance préventive assurée</li>
-          <li>Rapports d'activité détaillés et tableau de bord en ligne</li>
+          <li>Matériel certifié : caméras, alarmes, barbelés, systèmes de contrôle d'accès</li>
+          <li>Rapports d'activité détaillés et suivi personnalisé</li>
         </ul>
       </div>
     </div>
@@ -1131,8 +1125,8 @@
         <div class="label">Clients satisfaits</div>
       </div>
       <div class="counter-item reveal">
-        <div class="number" data-count="98">0</div>
-        <div class="label">% de taux de disponibilité</div>
+        <div class="number" data-count="100">0</div>
+        <div class="label">% de disponibilité</div>
       </div>
       <div class="counter-item reveal">
         <div class="number" data-count="45">0</div>
@@ -1140,23 +1134,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Sectors -->
-  <section id="secteurs" class="sectors">
-    <div class="wrap">
-      <div class="section-label reveal">Secteurs d'intervention</div>
-      <div class="section-head reveal">
-        <h2>Nous couvrons tous les besoins de sécurité</h2>
-        <p>Des sites industriels aux résidences privées, notre offre s'adapte à chaque environnement.</p>
-      </div>
-      <div class="sector-row">
-        <div><span>Industrie</span> Usines, entrepôts, chantiers</div>
-        <div><span>Commerce</span> Magasins, centres commerciaux</div>
-        <div><span>Résidentiel</span> Villas, copropriétés, résidences</div>
-        <div><span>Événementiel</span> Salons, concerts, manifestations</div>
-      </div>
-    </div>
-  </section>
 
   <!-- Testimonials avec image ipp.jpg en fond subtil -->
   <section class="testimonials">
@@ -1168,7 +1145,7 @@
       </div>
       <div class="testimonial-grid">
         <div class="testimonial-card reveal">
-          <div class="quote">« IPSS Security a sécurisé notre site de production avec une efficacité remarquable. Équipe disponible et compétente. »</div>
+          <div class="quote">« IPSS a sécurisé notre site de production avec une efficacité remarquable. Équipe disponible et compétente. »</div>
           <div class="author">— Jean-Baptiste K.</div>
           <div class="role">Directeur d'usine, Ouagadougou</div>
         </div>
@@ -1207,6 +1184,13 @@
               <div class="value"><a href="tel:+22656513009">+226 56 51 30 09</a></div>
             </div>
           </div>
+          <div class="info-item">
+            <div class="ico">📜</div>
+            <div>
+              <div class="label">Arrêté</div>
+              <div class="value" style="font-size:13px;">N°2021-00399/MSECU/CAB/DR du 20/05/2021</div>
+            </div>
+          </div>
           <div class="social-row">
             <a href="#" aria-label="Facebook">f</a>
             <a href="#" aria-label="LinkedIn">in</a>
@@ -1231,9 +1215,10 @@
               <label for="service">Service souhaité</label>
               <select id="service" name="service">
                 <option>Gardiennage &amp; Surveillance</option>
-                <option>Vidéosurveillance &amp; Alarme</option>
-                <option>Contrôle d'accès</option>
-                <option>Autre prestation</option>
+                <option>Formations</option>
+                <option>Garde rapprochée</option>
+                <option>Escorte</option>
+                <option>Vente / Location de matériels</option>
               </select>
             </div>
             <div class="field">
@@ -1241,6 +1226,7 @@
               <textarea id="message" name="message" placeholder="Décrivez votre besoin..."></textarea>
             </div>
             <button type="submit" class="btn">Envoyer la demande</button>
+            <div class="form-note">Réponse sous 24h ouvrées</div>
           </form>
         </div>
       </div>
@@ -1258,21 +1244,23 @@
             </div>
             <div class="name">IPSS SECURITY</div>
           </div>
-          <p>Votre partenaire de confiance pour la sécurité des biens et des personnes au Burkina Faso.</p>
+          <p>International Protective Services and Security — Votre partenaire de confiance pour la sécurité des biens et des personnes au Burkina Faso.</p>
         </div>
         <div>
           <h4>Services</h4>
           <ul>
             <li><a href="#services">Gardiennage</a></li>
-            <li><a href="#services">Vidéosurveillance</a></li>
-            <li><a href="#services">Contrôle d'accès</a></li>
+            <li><a href="#services">Formations</a></li>
+            <li><a href="#services">Garde rapprochée</a></li>
+            <li><a href="#services">Escorte</a></li>
+            <li><a href="#services">Vente &amp; Location</a></li>
           </ul>
         </div>
         <div>
           <h4>À propos</h4>
           <ul>
             <li><a href="#apropos">Notre équipe</a></li>
-            <li><a href="#secteurs">Secteurs</a></li>
+            <li><a href="#apropos">Reconnaissance officielle</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
@@ -1281,11 +1269,13 @@
           <ul>
             <li><a href="tel:+22656513009">+226 56 51 30 09</a></li>
             <li>Ouagadougou, Secteur 2</li>
+            <li style="font-size:12px;color:#6E7B93;">Arrêté N°2021-00399</li>
           </ul>
         </div>
       </div>
       <div class="foot-bottom">
-        <span>&copy; IPSS Security. Tous droits réservés.</span>
+        <span>&copy; IPSS Security — Tous droits réservés.</span>
+        <span class="cert">✓ Société reconnue par l'État burkinabè</span>
         <span>Ouagadougou, Burkina Faso</span>
       </div>
     </div>
