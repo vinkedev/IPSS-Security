@@ -1033,8 +1033,8 @@
       nextBtn?.addEventListener('click', () => goTo(current + 1));
       prevBtn?.addEventListener('click', () => goTo(current - 1));
 
-      slider.addEventListener('mouseenter', () => { paused = true; });
-      slider.addEventListener('mouseleave', () => { if (!reduced) paused = false; });
+      /* ⚠️ Supprimé : plus de pause au survol de la souris.
+         Le slider continue de tourner même quand la souris est dessus. */
 
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
