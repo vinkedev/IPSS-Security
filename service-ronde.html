@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rondes de Sécurité — IPSS Security</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy-950: #081226; --orange-600: #E8630C; --orange-500: #F17B1F; --paper: #F6F4EF; --white: #FFFFFF; --ink: #14181F; --ink-muted: #5B6472; --line: #E4E0D6; --radius: 8px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); line-height: 1.7; }
+    h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; font-weight: 600; line-height: 1.15; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .page-hero { position: relative; height: 420px; overflow: hidden; background: var(--navy-950); display: flex; align-items: flex-end; }
+    .page-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+    .page-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,18,38,0.4) 0%, rgba(8,18,38,0.95) 100%); }
+    .page-hero-content { position: relative; color: white; padding: 60px 24px; max-width: 900px; margin: 0 auto; width: 100%; }
+    .page-hero h1 { font-size: clamp(30px, 5vw, 48px); margin-bottom: 12px; }
+    .breadcrumb { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--orange-500); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a:hover { color: white; }
+    .page-content { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
+    .page-content h2 { font-size: 26px; margin: 40px 0 18px; color: var(--navy-950); }
+    .page-content h2:first-child { margin-top: 0; }
+    .page-content p { margin-bottom: 18px; color: var(--ink-muted); font-size: 16px; }
+    .page-content ul { margin: 20px 0 30px 24px; display: grid; gap: 12px; }
+    .page-content li { color: var(--ink-muted); font-size: 15.5px; }
+    .page-content li::marker { color: var(--orange-600); }
+    .page-content strong { color: var(--ink); }
+    .cta-box { background: var(--navy-950); color: white; padding: 40px; border-radius: var(--radius); margin-top: 56px; text-align: center; }
+    .cta-box h3 { font-size: 24px; margin-bottom: 12px; }
+    .cta-box p { color: #AEB9CC; margin-bottom: 24px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange-600); color: white; font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; padding: 14px 32px; border: none; cursor: pointer; border-radius: var(--radius); transition: all 0.3s ease; }
+    .btn:hover { background: white; color: var(--navy-950); transform: translateY(-3px); }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 40px; color: var(--orange-600); font-weight: 600; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; transition: gap 0.3s ease; }
+    .back-link:hover { gap: 16px; }
+  </style>
+</head>
+<body>
+  <div class="page-hero">
+    <img src="ipss/ronde.jpg" alt="Rondes de Sécurité" />
+    <div class="page-hero-scrim"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb"><a href="index.html">Accueil</a> <span>/</span> <span>Services</span> <span>/</span> <span>Rondes de Sécurité</span></div>
+      <h1>Rondes de Sécurité</h1>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <h2>Présentation du service</h2>
+    <p>Le service de rondes et d'intervention mobile d'IPSS est une solution idéale pour les sites qui n'ont pas besoin d'une présence permanente mais qui souhaitent une surveillance régulière et une capacité de réaction rapide.</p>
+
+    <h2>Comment ça fonctionne ?</h2>
+    <p>Nos agents effectuent des passages réguliers sur votre site selon un planning convenu ensemble. Entre les passages, vous disposez d'un numéro d'urgence pour déclencher une intervention immédiate en cas d'alerte.</p>
+
+    <h2>Nos prestations</h2>
+    <ul>
+      <li>Passages réguliers (nuit, week-end ou horaires personnalisés)</li>
+      <li>Contrôle des issues, portes et systèmes d'alarme</li>
+      <li>Détection d'anomalies et de tentatives d'intrusion</li>
+      <li>Intervention rapide en cas de déclenchement d'alarme</li>
+      <li>Rapports de passage détaillés après chaque ronde</li>
+      <li>Assistance aux équipes internes en cas de besoin</li>
+    </ul>
+
+    <h2>Pourquoi choisir ce service ?</h2>
+    <p>C'est une solution <strong>économique et efficace</strong> qui offre une vraie sécurité sans les contraintes et le coût d'un poste de gardiennage permanent. Idéal pour les PME, entrepôts, agences et bureaux.</p>
+
+    <h2>Pour qui ?</h2>
+    <p>PME, commerces, agences bancaires, sites industriels, entrepôts, bureaux, écoles et tout site nécessitant une surveillance périodique.</p>
+
+    <div class="cta-box">
+      <h3>Un site à surveiller ?</h3>
+      <p>Nous établissons un plan de rondes sur mesure adapté à votre activité.</p>
+      <a href="index.html#contact" class="btn">Demander un devis gratuit</a>
+    </div>
+
+    <a href="index.html#services" class="back-link">← Retour aux services</a>
+  </div>
+</body>
+</html>
