@@ -21,8 +21,9 @@
       --ink: #14181F;
       --ink-muted: #5B6472;
       --line: #E4E0D6;
-      --radius: 4px;
-      --shadow: 0 20px 40px -12px rgba(8, 18, 38, 0.25);
+      --radius: 6px;
+      --shadow: 0 20px 40px -12px rgba(8, 18, 38, 0.18);
+      --shadow-sm: 0 4px 14px rgba(8, 18, 38, 0.06);
     }
     * {
       margin: 0;
@@ -58,88 +59,9 @@
       font-family: 'IBM Plex Mono', monospace;
     }
     .wrap {
-      max-width: 1160px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
-    }
-
-    /* ---- SPLASH SCREEN (Loading) ---- */
-    #splash-screen {
-      position: fixed;
-      inset: 0;
-      background: var(--navy-950);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-      gap: 30px;
-    }
-    #splash-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .splash-logo {
-      width: 120px;
-      height: 120px;
-      border: 3px solid var(--orange-600);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: splashPulse 1.8s ease-in-out infinite;
-      background: rgba(232, 99, 12, 0.08);
-      padding: 12px;
-      overflow: hidden;
-    }
-    .splash-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-    .splash-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 42px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 10px;
-    }
-    .splash-title span {
-      color: var(--orange-500);
-    }
-    .splash-sub {
-      font-family: 'IBM Plex Mono', monospace;
-      color: #8593AC;
-      font-size: 14px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-top: -10px;
-    }
-    .splash-progress {
-      width: 220px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-    .splash-progress .bar {
-      width: 0%;
-      height: 100%;
-      background: var(--orange-600);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    @keyframes splashPulse {
-      0% { box-shadow: 0 0 0 0 rgba(232, 99, 12, 0.4); transform: scale(1); }
-      50% { box-shadow: 0 0 0 25px rgba(232, 99, 12, 0); transform: scale(1.05); }
-      100% { box-shadow: 0 0 0 0 rgba(232, 99, 12, 0); transform: scale(1); }
     }
 
     /* ---- Animations ---- */
@@ -160,6 +82,7 @@
       opacity: 1;
       transform: translateY(0);
     }
+
     /* ---- Utility Bar ---- */
     .utility-bar {
       background: var(--navy-950);
@@ -187,12 +110,13 @@
     .utility-bar .status {
       color: var(--orange-500);
     }
+
     /* ---- Header ---- */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
     }
@@ -201,6 +125,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 14px 24px;
+      gap: 20px;
     }
     .brand {
       display: flex;
@@ -282,17 +207,17 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-size: 13.5px;
-      padding: 12px 26px;
+      padding: 13px 28px;
       border: none;
       cursor: pointer;
-      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      border-radius: var(--radius);
       transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-      box-shadow: 0 4px 12px rgba(232, 99, 12, 0.3);
+      box-shadow: 0 6px 16px rgba(232, 99, 12, 0.28);
     }
     .btn:hover {
       background: var(--navy-950);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(232, 99, 12, 0.4);
+      box-shadow: 0 10px 26px rgba(232, 99, 12, 0.35);
     }
     .btn.outline {
       background: transparent;
@@ -314,10 +239,11 @@
       cursor: pointer;
       color: var(--navy-950);
     }
+
     /* ---- Hero ---- */
     .hero {
       position: relative;
-      min-height: 640px;
+      min-height: 620px;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
@@ -330,18 +256,18 @@
       height: 100%;
       object-fit: cover;
       object-position: center 20%;
-      opacity: 0.5;
+      opacity: 0.55;
     }
     .hero-scrim {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(8, 18, 38, 0.55) 0%, rgba(8, 18, 38, 0.65) 45%, rgba(8, 18, 38, 0.97) 100%);
+      background: linear-gradient(180deg, rgba(8, 18, 38, 0.55) 0%, rgba(8, 18, 38, 0.7) 45%, rgba(8, 18, 38, 0.97) 100%);
     }
     .hero-content {
       position: relative;
       color: var(--white);
-      padding: 120px 24px 72px;
-      max-width: 1160px;
+      padding: 120px 24px 80px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
       animation: fadeUp 0.9s ease forwards;
@@ -366,7 +292,7 @@
       animation: pulseGlow 2s infinite;
     }
     .hero h1 {
-      font-size: clamp(38px, 6vw, 64px);
+      font-size: clamp(38px, 6vw, 62px);
       max-width: 780px;
     }
     .hero h1 em {
@@ -374,10 +300,10 @@
       color: var(--orange-500);
     }
     .hero p {
-      font-size: 17px;
+      font-size: 16px;
       color: #D7DEEA;
-      max-width: 520px;
-      margin: 20px 0 32px;
+      max-width: 560px;
+      margin: 22px 0 34px;
       font-family: 'Inter', sans-serif;
       text-transform: none;
       letter-spacing: 0;
@@ -387,11 +313,12 @@
       gap: 14px;
       flex-wrap: wrap;
     }
+
     /* ---- Ticker ---- */
     .ticker {
       background: var(--orange-600);
       color: var(--white);
-      padding: 11px 0;
+      padding: 12px 0;
       overflow: hidden;
     }
     .ticker .wrap {
@@ -404,6 +331,7 @@
       letter-spacing: 0.03em;
       text-transform: uppercase;
     }
+
     /* ---- Sections ---- */
     section {
       padding: 96px 0;
@@ -439,41 +367,42 @@
     }
     .section-head p {
       color: var(--ink-muted);
-      max-width: 380px;
+      max-width: 400px;
       font-size: 15px;
       text-transform: none;
       font-family: 'Inter', sans-serif;
       letter-spacing: 0;
     }
+
     /* ---- Services ---- */
     .services {
       background: var(--paper);
     }
     .service-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: var(--line);
-      border: 1px solid var(--line);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
     .service-card {
       background: var(--white);
-      padding: 36px 30px;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--orange-600);
+      box-shadow: var(--shadow-sm);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
-      cursor: default;
     }
     .service-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow);
-      z-index: 2;
     }
     .service-card .num {
       font-family: 'IBM Plex Mono', monospace;
       color: var(--orange-600);
-      font-size: 13px;
-      margin-bottom: 22px;
+      font-size: 12.5px;
+      margin-bottom: 20px;
       display: block;
+      letter-spacing: 0.05em;
     }
     .service-card h3 {
       font-size: 19px;
@@ -486,6 +415,46 @@
       letter-spacing: 0;
       font-family: 'Inter', sans-serif;
     }
+
+    /* ---- Secteurs ---- */
+    .sectors {
+      background: var(--navy-950);
+      color: var(--white);
+    }
+    .sectors .section-label {
+      color: var(--orange-500);
+    }
+    .sectors .section-head p {
+      color: #AEB9CC;
+    }
+    .sector-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .sector-card {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 30px 26px;
+      border-radius: var(--radius);
+      transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    }
+    .sector-card:hover {
+      border-color: var(--orange-600);
+      transform: translateY(-4px);
+      background: rgba(232, 99, 12, 0.05);
+    }
+    .sector-card h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+    .sector-card p {
+      font-size: 13.5px;
+      color: #AEB9CC;
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
     /* ---- About ---- */
     .about {
       display: grid;
@@ -562,11 +531,12 @@
       margin-top: 6px;
       border-radius: 50%;
     }
+
     /* ---- Counters ---- */
     .counters {
       background: var(--navy-950);
       color: var(--white);
-      padding: 56px 0;
+      padding: 64px 0;
     }
     .counter-grid {
       display: grid;
@@ -576,7 +546,7 @@
     }
     .counter-item .number {
       font-family: 'Oswald', sans-serif;
-      font-size: 42px;
+      font-size: 44px;
       font-weight: 700;
       color: var(--orange-500);
       line-height: 1;
@@ -586,56 +556,13 @@
       font-size: 13px;
       letter-spacing: 0.04em;
       color: #AEB9CC;
-      margin-top: 6px;
+      margin-top: 8px;
     }
-    /* ---- Sectors ---- */
-    .sectors {
-      background: var(--navy-950);
-      color: var(--white);
-    }
-    .sectors .section-label {
-      color: var(--orange-500);
-    }
-    .sectors .section-head p {
-      color: #AEB9CC;
-    }
-    .sector-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid rgba(255, 255, 255, 0.14);
-    }
-    .sector-row div {
-      padding: 24px 8px 24px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      font-family: 'Oswald', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.02em;
-    }
-    .sector-row div span {
-      display: block;
-      font-family: 'IBM Plex Mono', monospace;
-      color: var(--orange-500);
-      font-size: 11.5px;
-      text-transform: none;
-      margin-bottom: 8px;
-    }
+
     /* ---- Testimonials ---- */
     .testimonials {
-      background: var(--white);
+      background: var(--paper);
       position: relative;
-    }
-    .testimonials::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('ipss/ipp.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.04;
-      pointer-events: none;
     }
     .testimonial-grid {
       display: grid;
@@ -645,10 +572,11 @@
       z-index: 1;
     }
     .testimonial-card {
-      background: var(--paper);
+      background: var(--white);
       padding: 32px 28px;
       border-radius: var(--radius);
       border-left: 4px solid var(--orange-600);
+      box-shadow: var(--shadow-sm);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .testimonial-card:hover {
@@ -669,6 +597,7 @@
       font-size: 13px;
       color: var(--ink-muted);
     }
+
     /* ---- Contact ---- */
     .contact {
       background: var(--paper);
@@ -680,6 +609,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
     .contact-info {
       background: var(--navy-950);
@@ -816,6 +746,7 @@
       color: var(--ink-muted);
       margin-top: 8px;
     }
+
     /* ---- Footer ---- */
     footer {
       background: var(--navy-950);
@@ -890,6 +821,7 @@
     .foot-bottom .cert {
       color: var(--orange-500);
     }
+
     /* ---- WhatsApp Float ---- */
     .wa-float {
       position: fixed;
@@ -915,9 +847,13 @@
       height: 28px;
       fill: white;
     }
+
     /* ---- Responsive ---- */
     @media (max-width: 1024px) {
       .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .sector-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -926,9 +862,6 @@
       .contact-grid,
       .foot-grid {
         grid-template-columns: 1fr;
-      }
-      .sector-row {
-        grid-template-columns: repeat(2, 1fr);
       }
       .counter-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -956,17 +889,17 @@
       .service-grid {
         grid-template-columns: 1fr;
       }
+      .sector-grid {
+        grid-template-columns: 1fr;
+      }
       .testimonial-grid {
         grid-template-columns: 1fr;
       }
       .counter-grid {
         grid-template-columns: 1fr 1fr;
       }
-      .sector-row {
-        grid-template-columns: 1fr;
-      }
       .hero-content {
-        padding: 90px 20px 56px;
+        padding: 90px 20px 60px;
       }
       section {
         padding: 64px 0;
@@ -975,29 +908,10 @@
       .contact-form {
         padding: 34px 26px;
       }
-      .splash-title {
-        font-size: 30px;
-      }
-      .splash-logo {
-        width: 90px;
-        height: 90px;
-      }
     }
   </style>
 </head>
 <body>
-
-  <!-- SPLASH SCREEN -->
-  <div id="splash-screen">
-    <div class="splash-logo">
-      <img src="ipss/logo.jpg" alt="IPSS Security Logo" />
-    </div>
-    <div class="splash-title">IPSS <span>Security</span></div>
-    <div class="splash-sub">Protection &bull; Sûreté &bull; Excellence</div>
-    <div class="splash-progress">
-      <div class="bar" id="progress-bar"></div>
-    </div>
-  </div>
 
   <!-- Utility Bar -->
   <div class="utility-bar">
@@ -1018,11 +932,12 @@
         <div class="logo">
           <img src="ipss/logo.jpg" alt="IPSS Security" />
         </div>
-        <div class="name">IPSS SECURITY<small>International Protective Services &amp; Security — Ouagadougou</small></div>
+        <div class="name">IPSS SECURITY<small>International Protective Services &amp; Security</small></div>
       </div>
       <nav class="links">
         <a href="#accueil">Accueil</a>
         <a href="#services">Services</a>
+        <a href="#secteurs">Secteurs</a>
         <a href="#apropos">À propos</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -1037,8 +952,8 @@
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="eyebrow">Sûreté &bull; Surveillance &bull; Protection</div>
-      <h1>Pour votre sécurité et celle de vos <em>biens</em>, faites nous confiance !</h1>
-      <p>IPSS (International Protective Services and Security) est une société de sécurité privée basée à Ouagadougou, reconnue par l'arrêté N°2021-00399/MSECU/CAB/DR du 20/05/2021.</p>
+      <h1>Pour votre sécurité et celle de vos <em>biens</em>, faites-nous confiance.</h1>
+      <p>Gardiennage, protection rapprochée et surveillance à Ouagadougou. Société reconnue par l'arrêté N°2021-00399/MSECU/CAB/DR.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn">Demander une étude</a>
         <a href="#services" class="btn outline">Nos Services</a>
@@ -1062,7 +977,7 @@
       <div class="section-label reveal">Nos Prestations</div>
       <div class="section-head reveal">
         <h2>Des services complets pour votre sécurité</h2>
-        <p>IPSS vous propose une gamme étendue de prestations adaptées à tous vos besoins.</p>
+        <p>Une gamme étendue de prestations adaptées à tous vos besoins, des particuliers aux institutions.</p>
       </div>
       <div class="service-grid">
         <div class="service-card reveal">
@@ -1081,9 +996,48 @@
           <p>Agents spécialisés pour la protection rapprochée de personnalités, cadres et familles.</p>
         </div>
         <div class="service-card reveal">
-          <span class="num">04 // ESCORTE &amp; MATÉRIEL</span>
-          <h3>Escorte &amp; Équipements</h3>
-          <p>Escorte de valeurs et de personnes. Vente et location de caméras, barbelés, alarmes, etc.</p>
+          <span class="num">04 // ESCORTE</span>
+          <h3>Escorte &amp; Protection</h3>
+          <p>Escorte de valeurs et de personnes sur tout le territoire burkinabè, avec protocoles sur mesure.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="num">05 // MATÉRIEL</span>
+          <h3>Vente &amp; Location</h3>
+          <p>Caméras, barbelés, alarmes, systèmes de contrôle d'accès. Installation et maintenance incluses.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="num">06 // CONSEIL</span>
+          <h3>Audit &amp; Conseil</h3>
+          <p>Évaluation de vos risques, recommandations concrètes et plans de sécurité personnalisés.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secteurs d'activité -->
+  <section id="secteurs" class="sectors">
+    <div class="wrap">
+      <div class="section-label reveal">Secteurs d'activité</div>
+      <div class="section-head reveal">
+        <h2>Des services de sécurité dédiés à votre secteur</h2>
+        <p>Nous adaptons nos prestations aux exigences spécifiques de votre métier.</p>
+      </div>
+      <div class="sector-grid">
+        <div class="sector-card reveal">
+          <h3>Industrie &amp; Logistique</h3>
+          <p>Surveillance de sites sensibles, contrôle d'accès, sécurisation de marchandises.</p>
+        </div>
+        <div class="sector-card reveal">
+          <h3>Commerce &amp; Événementiel</h3>
+          <p>Gardiennage de boutiques, sécurité événementielle, gestion des foules.</p>
+        </div>
+        <div class="sector-card reveal">
+          <h3>Particuliers &amp; Résidences</h3>
+          <p>Protection de villas, surveillance de quartiers, alarme et télésurveillance.</p>
+        </div>
+        <div class="sector-card reveal">
+          <h3>Institutions &amp; ONG</h3>
+          <p>Protection de personnels, sécurisation de locaux administratifs, escorte.</p>
         </div>
       </div>
     </div>
@@ -1135,7 +1089,7 @@
     </div>
   </div>
 
-  <!-- Testimonials avec image ipp.jpg en fond subtil -->
+  <!-- Testimonials -->
   <section class="testimonials">
     <div class="wrap">
       <div class="section-label reveal">Ils nous font confiance</div>
@@ -1219,6 +1173,7 @@
                 <option>Garde rapprochée</option>
                 <option>Escorte</option>
                 <option>Vente / Location de matériels</option>
+                <option>Audit &amp; Conseil</option>
               </select>
             </div>
             <div class="field">
@@ -1260,7 +1215,7 @@
           <h4>À propos</h4>
           <ul>
             <li><a href="#apropos">Notre équipe</a></li>
-            <li><a href="#apropos">Reconnaissance officielle</a></li>
+            <li><a href="#secteurs">Secteurs d'activité</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
@@ -1290,22 +1245,6 @@
   </a>
 
   <script>
-    // ---- SPLASH SCREEN ----
-    const splash = document.getElementById('splash-screen');
-    const progressBar = document.getElementById('progress-bar');
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.floor(Math.random() * 8) + 3;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        setTimeout(() => {
-          splash.classList.add('hidden');
-        }, 500);
-      }
-      progressBar.style.width = progress + '%';
-    }, 200);
-
     // ---- Reveal on scroll ----
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -1345,6 +1284,14 @@
       const nav = document.querySelector('nav.links');
       if (nav) {
         nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.padding = '20px';
+        nav.style.borderBottom = '1px solid #E4E0D6';
       }
     });
   </script>
