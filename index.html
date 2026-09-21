@@ -52,13 +52,12 @@
     @keyframes fadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     @keyframes scaleIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
-    @keyframes slideInLeft { 0% { opacity: 0; transform: translateX(-50px); } 100% { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInRight { 0% { opacity: 0; transform: translateX(50px); } 100% { opacity: 1; transform: translateX(0); } }
     @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(232, 99, 12, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(232, 99, 12, 0); } }
     @keyframes logoPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     @keyframes scrollImages { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes kenburns { from { transform: scale(1.03); } to { transform: scale(1.18); } }
 
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -78,7 +77,7 @@
     .utility-bar .status { color: var(--orange-500); animation: pulseGlow 2s infinite; }
 
     /* ============================================ */
-    /* ---- HEADER AVEC LOGO AGRANDI ---- */
+    /* ---- HEADER ---- */
     /* ============================================ */
     header { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); transition: box-shadow 0.3s ease, background 0.3s ease; }
     header.scrolled { box-shadow: 0 4px 20px rgba(8, 18, 38, 0.08); }
@@ -124,17 +123,168 @@
     .btn-facebook:hover { background: #0d5bbd; transform: translateY(-3px) scale(1.08); box-shadow: 0 12px 28px rgba(24, 119, 242, 0.45); }
     .btn-facebook:hover svg { transform: rotate(8deg) scale(1.1); }
 
-    /* ---- Hero ---- */
-    .hero { position: relative; min-height: 640px; display: flex; align-items: flex-end; overflow: hidden; background: var(--navy-950); }
-    .hero .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; opacity: 0.55; animation: scaleIn 1.4s ease forwards; }
-    .hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 18, 38, 0.55) 0%, rgba(8, 18, 38, 0.7) 45%, rgba(8, 18, 38, 0.97) 100%); }
-    .hero-content { position: relative; color: var(--white); padding: 120px 24px 80px; max-width: 1200px; margin: 0 auto; width: 100%; animation: fadeUp 1s ease forwards; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--orange-500); text-transform: uppercase; margin-bottom: 18px; animation: fadeUp 0.9s ease 0.2s both; }
+    /* ============================================ */
+    /* ---- HERO SLIDER (3 DIAPOSITIVES) ---- */
+    /* ============================================ */
+    .hero-slider {
+      position: relative;
+      min-height: 700px;
+      overflow: hidden;
+      background: var(--navy-950);
+    }
+    .slides { position: absolute; inset: 0; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1.3s;
+      will-change: opacity;
+    }
+    .slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      transform: scale(1.03);
+      transform-origin: center;
+      will-change: transform;
+    }
+    .slide.is-active .slide-bg { animation: kenburns 7s ease-out forwards; }
+
+    .slide-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 18, 38, 0.5) 0%, rgba(8, 18, 38, 0.72) 45%, rgba(8, 18, 38, 0.97) 100%);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 130px 24px 150px;
+    }
+    .slide-content > * { opacity: 0; }
+    .slide.is-active .eyebrow { animation: fadeUp 0.9s ease 0.15s both; }
+    .slide.is-active .slide-content h1 { animation: fadeUp 0.9s ease 0.30s both; }
+    .slide.is-active .slide-content p { animation: fadeUp 0.9s ease 0.45s both; }
+    .slide.is-active .hero-ctas { animation: fadeUp 0.9s ease 0.60s both; }
+
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--orange-500); text-transform: uppercase; margin-bottom: 18px; }
     .eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--orange-600); border-radius: 50%; animation: pulseGlow 2s infinite; }
-    .hero h1 { font-size: clamp(36px, 5.6vw, 60px); max-width: 820px; animation: fadeUp 0.9s ease 0.3s both; }
-    .hero h1 em { font-style: normal; color: var(--orange-500); }
-    .hero p { font-size: 16px; color: #D7DEEA; max-width: 600px; margin: 22px 0 34px; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0; animation: fadeUp 0.9s ease 0.5s both; }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.9s ease 0.7s both; }
+
+    .slide h1 { font-size: clamp(36px, 5.6vw, 60px); max-width: 820px; }
+    .slide h1 em { font-style: normal; color: var(--orange-500); }
+    .slide p { font-size: 16px; color: #D7DEEA; max-width: 600px; margin: 22px 0 34px; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0; }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* ---- Progress bar ---- */
+    .slider-progress {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 8;
+      overflow: hidden;
+    }
+    .slider-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--orange-600), var(--orange-500));
+      box-shadow: 0 0 16px rgba(232, 99, 12, 0.9);
+    }
+
+    /* ---- Dots ---- */
+    .slider-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 36px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      z-index: 7;
+    }
+    .slider-dots button {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.35);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .slider-dots button:hover { background: rgba(255, 255, 255, 0.75); }
+    .slider-dots button.active {
+      width: 36px;
+      background: var(--orange-600);
+      box-shadow: 0 0 16px rgba(232, 99, 12, 0.7);
+    }
+
+    /* ---- Arrows + counter ---- */
+    .slider-arrows {
+      position: absolute;
+      right: 24px;
+      bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 7;
+    }
+    .slider-counter {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-right: 8px;
+      text-transform: uppercase;
+    }
+    .slider-counter b { color: var(--white); font-weight: 600; }
+    .slider-counter i { font-style: normal; margin: 0 4px; color: rgba(255, 255, 255, 0.35); }
+    .slider-arrows button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      color: var(--white);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .slider-arrows button:hover {
+      background: var(--orange-600);
+      border-color: var(--orange-600);
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(232, 99, 12, 0.5);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.is-active .slide-bg { animation: none; }
+      .slide.is-active .slide-content > * { animation: none !important; opacity: 1; }
+      .slide-content > * { opacity: 1; }
+    }
 
     /* ---- Ticker ---- */
     .ticker { background: linear-gradient(90deg, var(--orange-600), var(--orange-500), var(--orange-600)); background-size: 200% 100%; animation: gradientShift 6s ease infinite; color: var(--white); padding: 12px 0; overflow: hidden; }
@@ -170,9 +320,7 @@
     .about-points li::before { content: ""; flex: none; width: 9px; height: 9px; background: var(--orange-600); margin-top: 6px; border-radius: 50%; transition: transform 0.3s ease; }
     .about-points li:hover::before { transform: scale(1.4); }
 
-    /* ============================================ */
-    /* ---- BANDEAU D'IMAGES DÉFILANT (MARQUEE) ---- */
-    /* ============================================ */
+    /* ---- BANDEAU D'IMAGES DÉFILANT ---- */
     .image-marquee { background: var(--navy-950); padding: 40px 0; overflow: hidden; position: relative; border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .image-marquee::before, .image-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
     .image-marquee::before { left: 0; background: linear-gradient(90deg, var(--navy-950) 0%, transparent 100%); }
@@ -183,9 +331,7 @@
     .marquee-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
     .marquee-item:hover img { transform: scale(1.08); }
 
-    /* ============================================ */
-    /* ---- SERVICES — GRILLE 2 COLONNES ---- */
-    /* ============================================ */
+    /* ---- SERVICES ---- */
     .services { background: var(--paper); }
     .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
     .service-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease; display: flex; flex-direction: column; border-bottom: 4px solid var(--orange-600); position: relative; }
@@ -307,19 +453,27 @@
       .brand .logo { width: 60px; height: 60px; }
       .brand .name { font-size: 20px; }
       .brand .name small { font-size: 10px; }
-      /* Masquer le bouton "Devis gratuit" du header sur tablette/mobile */
       .header-actions .btn:not(.btn-facebook) { display: none; }
       .header-actions { gap: 8px; }
       .btn-facebook { width: 48px; height: 48px; }
       .btn-facebook svg { width: 22px; height: 22px; }
+
+      .slider-counter { display: none; }
+      .slide-content { padding: 110px 24px 140px; }
+      .hero-slider { min-height: 640px; }
     }
 
     @media (max-width: 640px) {
+      /* Masquer la barre utilitaire (haut) */
+      .utility-bar { display: none; }
+
+      /* Masquer le ticker (bas du hero) */
+      .ticker { display: none; }
+
       .services-grid { grid-template-columns: 1fr; gap: 24px; }
       .service-card .card-img { height: 220px; }
       .sector-grid { grid-template-columns: 1fr; }
       .testimonial-grid { grid-template-columns: 1fr; }
-      .hero-content { padding: 90px 20px 60px; }
       section { padding: 64px 0; }
       .contact-info, .contact-form { padding: 34px 26px; }
       .marquee-item { width: 220px; height: 145px; }
@@ -334,15 +488,26 @@
       .btn-facebook svg { width: 20px; height: 20px; }
       .menu-toggle { font-size: 24px; flex: none; }
 
-      /* Menu mobile déroulant stylé */
       nav.links { background: white; box-shadow: 0 10px 30px rgba(8, 18, 38, 0.1); }
       nav.links a { font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--line); width: 100%; }
       nav.links a:last-child { border-bottom: none; }
 
-      /* Hero plus compact */
-      .hero { min-height: 560px; }
-      .hero-ctas { width: 100%; }
-      .hero-ctas .btn { flex: 1; justify-content: center; padding: 14px 20px; font-size: 13px; }
+      /* Hero slider mobile */
+      .hero-slider { min-height: 620px; }
+      .slide-content { padding: 100px 20px 130px; }
+      .slide h1 { font-size: clamp(28px, 8.2vw, 38px); }
+      .slide p { font-size: 14.5px; margin: 18px 0 26px; }
+      .slide .eyebrow { font-size: 11px; margin-bottom: 14px; }
+
+      .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+      .hero-ctas .btn { justify-content: center; padding: 14px 20px; font-size: 13px; width: 100%; }
+
+      .slider-dots { bottom: 30px; gap: 8px; }
+      .slider-dots button { width: 9px; height: 9px; }
+      .slider-dots button.active { width: 28px; }
+
+      .slider-arrows { right: 16px; bottom: 24px; gap: 6px; }
+      .slider-arrows button { width: 40px; height: 40px; font-size: 18px; }
 
       .section-head h2 { font-size: 24px; }
       .section-head p { font-size: 14px; }
@@ -354,7 +519,6 @@
       .wa-float { width: 50px; height: 50px; right: 16px; bottom: 16px; }
       .wa-float svg { width: 24px; height: 24px; }
 
-      /* Utility bar : texte centré et plus petit */
       .utility-bar { font-size: 11px; }
       .utility-bar .wrap { padding: 8px 14px; justify-content: center; text-align: center; }
     }
@@ -366,6 +530,9 @@
       .btn-facebook { width: 40px; height: 40px; }
       .btn-facebook svg { width: 18px; height: 18px; }
       .menu-toggle { font-size: 22px; }
+
+      .slider-arrows { display: none; }
+      .slider-dots { bottom: 26px; }
     }
   </style>
 </head>
@@ -411,18 +578,74 @@
     </div>
   </header>
 
-  <!-- Hero (Accueil) -->
-  <section class="hero" id="accueil" style="padding:0;">
-    <img class="bg-img" src="ipss/acceui.jpg" alt="Accueil IPSS Security" />
-    <div class="hero-scrim"></div>
-    <div class="hero-content">
-      <div class="eyebrow">Sûreté &bull; Surveillance &bull; Protection</div>
-      <h1>IPSS, une <em>société</em> de sécurité privée à votre service.</h1>
-      <p>Gardiennage, protection rapprochée, surveillance et formations. Une équipe formée et du matériel de pointe pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn">Devis gratuit</a>
-        <a href="#services" class="btn outline">Nos Services</a>
-      </div>
+  <!-- ============================================ -->
+  <!-- HERO SLIDER (3 DIAPOSITIVES) -->
+  <!-- ============================================ -->
+  <section class="hero-slider" id="accueil">
+    <div class="slides">
+
+      <!-- Slide 1 -->
+      <article class="slide is-active">
+        <div class="slide-bg" style="background-image:url('ipss/acceui.jpg')"></div>
+        <div class="slide-scrim"></div>
+        <div class="slide-content">
+          <div class="eyebrow">Sûreté &bull; Surveillance &bull; Protection</div>
+          <h1>IPSS, une <em>société</em> de sécurité privée à votre service.</h1>
+          <p>Gardiennage, protection rapprochée, surveillance et formations. Une équipe formée et du matériel de pointe pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn">Devis gratuit</a>
+            <a href="#services" class="btn outline">Nos Services</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Slide 2 -->
+      <article class="slide">
+        <div class="slide-bg" style="background-image:url('ipss/gardienage.png')"></div>
+        <div class="slide-scrim"></div>
+        <div class="slide-content">
+          <div class="eyebrow">Gardiennage 24h/24 &bull; 7j/7</div>
+          <h1>Des <em>agents formés</em> pour veiller sur vos sites.</h1>
+          <p>Présence dissuasive, contrôle d'accès et surveillance continue. Nos équipes assurent la sécurité de vos locaux, de jour comme de nuit, sur tout le territoire burkinabè.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn">Demander un devis</a>
+            <a href="service-gardiennage.html" class="btn outline">Nos prestations</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Slide 3 -->
+      <article class="slide">
+        <div class="slide-bg" style="background-image:url('ipss/escorte.png')"></div>
+        <div class="slide-scrim"></div>
+        <div class="slide-content">
+          <div class="eyebrow">Escorte &bull; Protection rapprochée</div>
+          <h1>Vos <em>valeurs</em> et vos équipes, protégées à chaque trajet.</h1>
+          <p>Transport de fonds, escorte de personnalités et sécurisation de convois sensibles. Une expertise éprouvée pour vos déplacements stratégiques.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn">Nous contacter</a>
+            <a href="service-escorte.html" class="btn outline">En savoir plus</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Barre de progression -->
+    <div class="slider-progress"><span></span></div>
+
+    <!-- Points de navigation -->
+    <div class="slider-dots" role="tablist" aria-label="Navigation des diapositives">
+      <button class="active" aria-label="Diapositive 1" aria-selected="true"></button>
+      <button aria-label="Diapositive 2" aria-selected="false"></button>
+      <button aria-label="Diapositive 3" aria-selected="false"></button>
+    </div>
+
+    <!-- Flèches + compteur -->
+    <div class="slider-arrows">
+      <span class="slider-counter"><b>01</b><i>/</i>03</span>
+      <button class="prev" aria-label="Diapositive précédente">‹</button>
+      <button class="next" aria-label="Diapositive suivante">›</button>
     </div>
   </section>
 
@@ -488,7 +711,6 @@
       </div>
 
       <div class="services-grid">
-        <!-- Service 1 -->
         <div class="service-card reveal-scale">
           <a href="service-gardiennage.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -502,7 +724,6 @@
           </a>
         </div>
 
-        <!-- Service 2 -->
         <div class="service-card reveal-scale">
           <a href="service-incendie.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -516,7 +737,6 @@
           </a>
         </div>
 
-        <!-- Service 3 -->
         <div class="service-card reveal-scale">
           <a href="service-escorte.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -530,7 +750,6 @@
           </a>
         </div>
 
-        <!-- Service 4 -->
         <div class="service-card reveal-scale">
           <a href="service-ronde.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -544,7 +763,6 @@
           </a>
         </div>
 
-        <!-- Service 5 -->
         <div class="service-card reveal-scale">
           <a href="service-evenementiel.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -558,7 +776,6 @@
           </a>
         </div>
 
-        <!-- Service 6 -->
         <div class="service-card reveal-scale">
           <a href="service-conseil.html" target="_blank" style="display:block; color:inherit;">
             <div class="card-img-wrap">
@@ -760,7 +977,86 @@
   </a>
 
   <script>
-    // ---- Reveal on scroll (avec délai en cascade) ----
+    /* ============================================ */
+    /* ---- HERO SLIDER (3 DIAPOSITIVES) ---- */
+    /* ============================================ */
+    (function initHeroSlider() {
+      const slider = document.querySelector('.hero-slider');
+      if (!slider) return;
+
+      const slides = Array.from(slider.querySelectorAll('.slide'));
+      if (slides.length < 2) return;
+
+      const dots = Array.from(slider.querySelectorAll('.slider-dots button'));
+      const progressBar = slider.querySelector('.slider-progress span');
+      const counterNum = slider.querySelector('.slider-counter b');
+      const prevBtn = slider.querySelector('.slider-arrows .prev');
+      const nextBtn = slider.querySelector('.slider-arrows .next');
+
+      const DURATION = 3000; // ⏱️ 3 secondes par slide
+      const TOTAL = slides.length;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let current = 0;
+      let elapsed = 0;
+      let lastTime = performance.now();
+      let paused = reduced;
+
+      function goTo(index) {
+        current = (index + TOTAL) % TOTAL;
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+        dots.forEach((d, i) => {
+          const active = i === current;
+          d.classList.toggle('active', active);
+          d.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        if (counterNum) counterNum.textContent = String(current + 1).padStart(2, '0');
+        elapsed = 0;
+        if (progressBar) progressBar.style.width = '0%';
+      }
+
+      function tick(now) {
+        const delta = now - lastTime;
+        lastTime = now;
+        if (!paused) {
+          elapsed += delta;
+          if (elapsed >= DURATION) {
+            goTo(current + 1);
+          } else if (progressBar) {
+            progressBar.style.width = (elapsed / DURATION * 100) + '%';
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+      nextBtn?.addEventListener('click', () => goTo(current + 1));
+      prevBtn?.addEventListener('click', () => goTo(current - 1));
+
+      slider.addEventListener('mouseenter', () => { paused = true; });
+      slider.addEventListener('mouseleave', () => { if (!reduced) paused = false; });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          paused = true;
+        } else if (!reduced) {
+          paused = false;
+          lastTime = performance.now();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+      });
+
+      goTo(0);
+      requestAnimationFrame(tick);
+    })();
+
+    /* ============================================ */
+    /* ---- Reveal on scroll (avec délai en cascade) ---- */
+    /* ============================================ */
     const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
@@ -774,7 +1070,9 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // ---- Header shadow au scroll ----
+    /* ============================================ */
+    /* ---- Header shadow au scroll ---- */
+    /* ============================================ */
     const header = document.getElementById('mainHeader');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
@@ -784,7 +1082,9 @@
       }
     });
 
-    // ---- Mobile menu toggle ----
+    /* ============================================ */
+    /* ---- Mobile menu toggle ---- */
+    /* ============================================ */
     document.querySelector('.menu-toggle')?.addEventListener('click', function() {
       const nav = document.querySelector('nav.links');
       if (nav) {
