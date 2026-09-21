@@ -288,11 +288,14 @@
     .wa-float svg { width: 28px; height: 28px; fill: white; transition: transform 0.3s ease; }
     .wa-float:hover svg { transform: scale(1.1); }
 
-    /* ---- Responsive ---- */
+    /* ============================================ */
+    /* ---- RESPONSIVE ---- */
+    /* ============================================ */
     @media (max-width: 1024px) {
       .sector-grid { grid-template-columns: repeat(2, 1fr); }
       .marquee-item { width: 260px; height: 170px; }
     }
+
     @media (max-width: 920px) {
       .about, .contact-grid, .foot-grid { grid-template-columns: 1fr; }
       .testimonial-grid { grid-template-columns: 1fr 1fr; }
@@ -304,10 +307,13 @@
       .brand .logo { width: 60px; height: 60px; }
       .brand .name { font-size: 20px; }
       .brand .name small { font-size: 10px; }
+      /* Masquer le bouton "Devis gratuit" du header sur tablette/mobile */
+      .header-actions .btn:not(.btn-facebook) { display: none; }
       .header-actions { gap: 8px; }
-      .btn-facebook { width: 44px; height: 44px; }
-      .btn-facebook svg { width: 20px; height: 20px; }
+      .btn-facebook { width: 48px; height: 48px; }
+      .btn-facebook svg { width: 22px; height: 22px; }
     }
+
     @media (max-width: 640px) {
       .services-grid { grid-template-columns: 1fr; gap: 24px; }
       .service-card .card-img { height: 220px; }
@@ -319,12 +325,47 @@
       .marquee-item { width: 220px; height: 145px; }
       .image-marquee { padding: 28px 0; }
       .marquee-track { gap: 16px; animation-duration: 18s; }
-      .brand .logo { width: 52px; height: 52px; }
-      .brand .name { font-size: 17px; }
-      .brand .name small { font-size: 9px; }
-      .nav { padding: 10px 16px; gap: 10px; }
+      .nav { padding: 10px 14px; gap: 8px; }
+      .brand { gap: 10px; flex: 1; min-width: 0; }
+      .brand .logo { width: 48px; height: 48px; flex: none; }
+      .brand .name { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .brand .name small { font-size: 8.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .btn-facebook { width: 44px; height: 44px; flex: none; }
+      .btn-facebook svg { width: 20px; height: 20px; }
+      .menu-toggle { font-size: 24px; flex: none; }
+
+      /* Menu mobile déroulant stylé */
+      nav.links { background: white; box-shadow: 0 10px 30px rgba(8, 18, 38, 0.1); }
+      nav.links a { font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--line); width: 100%; }
+      nav.links a:last-child { border-bottom: none; }
+
+      /* Hero plus compact */
+      .hero { min-height: 560px; }
+      .hero-ctas { width: 100%; }
+      .hero-ctas .btn { flex: 1; justify-content: center; padding: 14px 20px; font-size: 13px; }
+
+      .section-head h2 { font-size: 24px; }
+      .section-head p { font-size: 14px; }
+
+      .service-card .card-body { padding: 24px 22px 26px; }
+      .service-card .card-body h3 { font-size: 19px; }
+      .service-card .card-body p { font-size: 14px; }
+
+      .wa-float { width: 50px; height: 50px; right: 16px; bottom: 16px; }
+      .wa-float svg { width: 24px; height: 24px; }
+
+      /* Utility bar : texte centré et plus petit */
+      .utility-bar { font-size: 11px; }
+      .utility-bar .wrap { padding: 8px 14px; justify-content: center; text-align: center; }
+    }
+
+    @media (max-width: 400px) {
+      .brand .name { font-size: 13px; }
+      .brand .name small { display: none; }
+      .brand .logo { width: 42px; height: 42px; }
       .btn-facebook { width: 40px; height: 40px; }
       .btn-facebook svg { width: 18px; height: 18px; }
+      .menu-toggle { font-size: 22px; }
     }
   </style>
 </head>
