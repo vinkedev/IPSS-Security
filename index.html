@@ -365,6 +365,126 @@
     .sector-card:hover h3 { color: var(--orange-500); }
     .sector-card p { font-size: 13.5px; color: #AEB9CC; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; }
 
+    /* ============================================ */
+    /* ---- NOS PRODUITS ---- */
+    /* ============================================ */
+    .products { background: var(--white); }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.5s ease, border-color 0.4s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--orange-600);
+      box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22);
+    }
+
+    .product-media {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .product-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .product-card:hover .product-media img { transform: scale(1.1); }
+
+    .product-media::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(8, 18, 38, 0.45) 100%);
+      pointer-events: none;
+    }
+
+    .product-tag {
+      position: absolute; top: 14px; left: 14px; z-index: 2;
+      background: var(--orange-600);
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(232, 99, 12, 0.35);
+    }
+
+    .product-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
+    .product-body h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--navy-950);
+      transition: color 0.3s ease;
+    }
+    .product-card:hover .product-body h3 { color: var(--orange-600); }
+    .product-body p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--orange-600);
+      font-weight: 600;
+      align-self: flex-start;
+      transition: gap 0.3s ease, color 0.3s ease;
+    }
+    .product-link:hover { gap: 14px; color: var(--navy-950); }
+    .product-link::after { content: "→"; font-size: 15px; }
+
+    /* Bandeau d'appel en bas de la section produits */
+    .products-cta {
+      margin-top: 48px;
+      background: var(--navy-950);
+      border-left: 4px solid var(--orange-600);
+      border-radius: var(--radius);
+      padding: 28px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .products-cta .cta-text { color: var(--white); }
+    .products-cta .cta-text .mono {
+      font-size: 11.5px;
+      color: var(--orange-500);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .products-cta .cta-text strong {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
     /* ---- Testimonials ---- */
     .testimonials { background: var(--paper); position: relative; }
     .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
@@ -440,6 +560,7 @@
     @media (max-width: 1024px) {
       .sector-grid { grid-template-columns: repeat(2, 1fr); }
       .marquee-item { width: 260px; height: 170px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     }
 
     @media (max-width: 920px) {
@@ -464,10 +585,7 @@
     }
 
     @media (max-width: 640px) {
-      /* Masquer la barre utilitaire (haut) */
       .utility-bar { display: none; }
-
-      /* Masquer le ticker (bas du hero) */
       .ticker { display: none; }
 
       .services-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -492,7 +610,6 @@
       nav.links a { font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--line); width: 100%; }
       nav.links a:last-child { border-bottom: none; }
 
-      /* Hero slider mobile */
       .hero-slider { min-height: 620px; }
       .slide-content { padding: 100px 20px 130px; }
       .slide h1 { font-size: clamp(28px, 8.2vw, 38px); }
@@ -515,6 +632,11 @@
       .service-card .card-body { padding: 24px 22px 26px; }
       .service-card .card-body h3 { font-size: 19px; }
       .service-card .card-body p { font-size: 14px; }
+
+      .products-grid { grid-template-columns: 1fr; gap: 20px; }
+      .product-media { height: 200px; }
+      .products-cta { padding: 22px 22px; flex-direction: column; align-items: flex-start; text-align: left; }
+      .products-cta .cta-text strong { font-size: 17px; }
 
       .wa-float { width: 50px; height: 50px; right: 16px; bottom: 16px; }
       .wa-float svg { width: 24px; height: 24px; }
@@ -543,7 +665,7 @@
     <div class="wrap">
       <span><span class="status">●</span> Intervention 24h/24 — Ouagadougou, Burkina Faso</span>
       <span>
-        <a href="tel:+22656513009">📍 Ouagadougou, Burkina Faso</a>
+        <a href="https://wa.me/22656513009?text=Bonjour%20IPSS%20Security%20%F0%9F%91%8B%2C%20je%20vous%20contacte%20depuis%20votre%20site." target="_blank" rel="noopener">📍 Ouagadougou, Burkina Faso</a>
         &nbsp;&nbsp;|&nbsp;&nbsp;
         <a href="tel:+22656513009">☎ +226 56 51 30 09</a>
       </span>
@@ -564,10 +686,11 @@
         <a href="#apropos">À propos</a>
         <a href="#services">Services</a>
         <a href="#secteurs">Secteurs</a>
+        <a href="#produits">Produits</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
-        <a href="#contact" class="btn">Devis gratuit</a>
+        <a href="https://wa.me/22656513009" class="btn" data-wa-devis="header">Devis gratuit</a>
         <a href="https://web.facebook.com/ipsssecurite" target="_blank" rel="noopener" class="btn-facebook" aria-label="Page Facebook IPSS Security">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -593,7 +716,7 @@
           <h1>IPSS, une <em>société</em> de sécurité privée à votre service.</h1>
           <p>Gardiennage, protection rapprochée, surveillance et formations. Une équipe formée et du matériel de pointe pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
           <div class="hero-ctas">
-            <a href="#contact" class="btn">Devis gratuit</a>
+            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Devis gratuit</a>
             <a href="#services" class="btn outline">Nos Services</a>
           </div>
         </div>
@@ -608,7 +731,7 @@
           <h1>Des <em>agents formés</em> pour veiller sur vos sites.</h1>
           <p>Présence dissuasive, contrôle d'accès et surveillance continue. Nos équipes assurent la sécurité de vos locaux, de jour comme de nuit, sur tout le territoire burkinabè.</p>
           <div class="hero-ctas">
-            <a href="#contact" class="btn">Demander un devis</a>
+            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Demander un devis</a>
             <a href="service-gardiennage.html" class="btn outline">Nos prestations</a>
           </div>
         </div>
@@ -623,7 +746,7 @@
           <h1>Vos <em>valeurs</em> et vos équipes, protégées à chaque trajet.</h1>
           <p>Transport de fonds, escorte de personnalités et sécurisation de convois sensibles. Une expertise éprouvée pour vos déplacements stratégiques.</p>
           <div class="hero-ctas">
-            <a href="#contact" class="btn">Nous contacter</a>
+            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Nous contacter</a>
             <a href="service-escorte.html" class="btn outline">En savoir plus</a>
           </div>
         </div>
@@ -821,6 +944,150 @@
     </div>
   </section>
 
+  <!-- ============================================ -->
+  <!-- NOS PRODUITS -->
+  <!-- ============================================ -->
+  <section id="produits" class="products">
+    <div class="wrap">
+      <div class="section-label reveal">Nos Produits</div>
+      <div class="section-head reveal">
+        <h2>Équipements &amp; matériels de sécurité</h2>
+        <p>IPSS vous propose une gamme complète de matériels professionnels pour équiper vos agents, sécuriser vos sites et prévenir les risques. Vente et installation sur tout le territoire burkinabè.</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- Aérosol -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Défense</span>
+            <img src="ipss/Aérosol.jpeg" alt="Aérosol de défense" />
+          </div>
+          <div class="product-body">
+            <h3>Aérosol de Défense</h3>
+            <p>Aérosol lacrymogène de défense pour une protection immédiate en cas d'agression. Compact, efficace et facile à utiliser.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Aérosol de Défense">Commander</a>
+          </div>
+        </div>
+
+        <!-- Alarme incendie -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Incendie</span>
+            <img src="ipss/Alarme_incendie.jpeg" alt="Alarme incendie" />
+          </div>
+          <div class="product-body">
+            <h3>Alarme Incendie</h3>
+            <p>Détecteurs et alarmes incendie pour prévenir les risques et protéger vos locaux, entrepôts et habitations 24h/24.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Alarme Incendie">Commander</a>
+          </div>
+        </div>
+
+        <!-- Détecteur de métaux -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Contrôle d'accès</span>
+            <img src="ipss/Détecteur_de_metaux_ou_Scanner.jpeg" alt="Détecteur de métaux / Scanner" />
+          </div>
+          <div class="product-body">
+            <h3>Détecteur de Métaux / Scanner</h3>
+            <p>Contrôle d'accès et détection d'objets dangereux à l'entrée de vos sites, banques, hôtels et événements.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Détecteur de Métaux / Scanner">Commander</a>
+          </div>
+        </div>
+
+        <!-- Miroirs de sécurité -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Surveillance</span>
+            <img src="ipss/Miroirs_de_sécurité.jpeg" alt="Miroirs de sécurité" />
+          </div>
+          <div class="product-body">
+            <h3>Miroirs de Sécurité</h3>
+            <p>Miroirs convexes pour une visibilité totale dans les angles morts, parkings, couloirs et zones de circulation.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Miroirs de Sécurité">Commander</a>
+          </div>
+        </div>
+
+        <!-- Serrure intelligente -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Accès connecté</span>
+            <img src="ipss/Serrure_intelligente.jpeg" alt="Serrure intelligente" />
+          </div>
+          <div class="product-body">
+            <h3>Serrure Intelligente</h3>
+            <p>Serrures connectées et systèmes d'accès sécurisés (code, badge, empreinte) pour vos portes et locaux sensibles.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Serrure Intelligente">Commander</a>
+          </div>
+        </div>
+
+        <!-- Sifflet -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Signalisation</span>
+            <img src="ipss/Siflet.jpeg" alt="Sifflet de sécurité" />
+          </div>
+          <div class="product-body">
+            <h3>Sifflet de Sécurité</h3>
+            <p>Sifflets d'alarme puissants pour agents de sécurité, signalisation d'urgence et intervention rapide.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Sifflet de Sécurité">Commander</a>
+          </div>
+        </div>
+
+        <!-- Talkie-Walkie -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Communication</span>
+            <img src="ipss/Talkie_Walkie.jpeg" alt="Talkie-Walkie" />
+          </div>
+          <div class="product-body">
+            <h3>Talkie-Walkie</h3>
+            <p>Radios portatives longue portée pour une communication fluide et instantanée entre vos agents sur le terrain.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Talkie-Walkie">Commander</a>
+          </div>
+        </div>
+
+        <!-- Teaser -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Défense</span>
+            <img src="ipss/Teaser.jpeg" alt="Teaser — pistolet à impulsions" />
+          </div>
+          <div class="product-body">
+            <h3>Teaser (Pistolet à Impulsions)</h3>
+            <p>Appareil de défense électrique pour neutraliser une menace à distance tout en préservant votre intégrité physique.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Teaser (Pistolet à Impulsions)">Commander</a>
+          </div>
+        </div>
+
+        <!-- Torche de sécurité -->
+        <div class="product-card reveal-scale">
+          <div class="product-media">
+            <span class="product-tag">Intervention</span>
+            <img src="ipss/Torch_de_sécurité.jpeg" alt="Torche de sécurité" />
+          </div>
+          <div class="product-body">
+            <h3>Torche de Sécurité</h3>
+            <p>Torches tactiques puissantes et lampes de sécurité pour les rondes, patrouilles et interventions nocturnes.</p>
+            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Torche de Sécurité">Commander</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA bas de section -->
+      <div class="products-cta reveal">
+        <div class="cta-text">
+          <span class="mono">Vente &bull; Installation &bull; Formation</span>
+          <strong>Besoin d'un équipement spécifique ou d'un devis groupé ?</strong>
+        </div>
+        <a href="https://wa.me/22656513009" class="btn" data-wa-devis="produits">Commander via WhatsApp</a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Testimonials -->
   <section class="testimonials">
     <div class="wrap">
@@ -879,13 +1146,13 @@
           </div>
           <div class="social-row">
             <a href="https://web.facebook.com/ipsssecurite" target="_blank" rel="noopener" aria-label="Facebook">f</a>
-            <a href="https://wa.me/22656513009" target="_blank" rel="noopener" aria-label="WhatsApp">w</a>
+            <a href="https://wa.me/22656513009?text=Bonjour%20IPSS%20Security%20%F0%9F%91%8B%2C%20je%20vous%20contacte%20depuis%20votre%20site." target="_blank" rel="noopener" aria-label="WhatsApp">w</a>
           </div>
         </div>
         <div class="contact-form">
           <h3>Demander un Devis Gratuit</h3>
-          <p>Remplissez le formulaire ci-dessous et notre équipe vous recontactera rapidement.</p>
-          <form action="#" method="post">
+          <p>Remplissez le formulaire ci-dessous et notre équipe vous recontactera via WhatsApp.</p>
+          <form id="contactForm" action="#" method="post" novalidate>
             <div class="form-row">
               <div class="field">
                 <label for="name">Nom complet</label>
@@ -905,14 +1172,15 @@
                 <option>Rondes de Sécurité</option>
                 <option>Sécurité Événementielle</option>
                 <option>Audit &amp; Conseil</option>
+                <option>Achat de matériel / Produits</option>
               </select>
             </div>
             <div class="field">
               <label for="message">Message / Précisions</label>
               <textarea id="message" name="message" placeholder="Décrivez votre besoin..."></textarea>
             </div>
-            <button type="submit" class="btn">Envoyer la demande</button>
-            <div class="form-note">Réponse sous 24h ouvrées — Devis 100% gratuit</div>
+            <button type="submit" class="btn">Envoyer via WhatsApp</button>
+            <div class="form-note">Réponse sous 24h ouvrées — Devis 100% gratuit via WhatsApp</div>
           </form>
         </div>
       </div>
@@ -948,6 +1216,7 @@
           <ul>
             <li><a href="#apropos">Notre équipe</a></li>
             <li><a href="#secteurs">Secteurs d'activité</a></li>
+            <li><a href="#produits">Nos produits</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
@@ -969,7 +1238,7 @@
   </footer>
 
   <!-- WhatsApp Float -->
-  <a href="https://wa.me/22656513009" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a href="https://wa.me/22656513009?text=Bonjour%20IPSS%20Security%20%F0%9F%91%8B%2C%20je%20vous%20contacte%20depuis%20votre%20site." class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
       <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.583 3.639 1.578 5.096L2 22l5.092-1.586C8.474 21.453 10.18 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
@@ -993,7 +1262,7 @@
       const prevBtn = slider.querySelector('.slider-arrows .prev');
       const nextBtn = slider.querySelector('.slider-arrows .next');
 
-      const DURATION = 3000; // ⏱️ 3 secondes par slide
+      const DURATION = 3000;
       const TOTAL = slides.length;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1032,9 +1301,6 @@
       dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
       nextBtn?.addEventListener('click', () => goTo(current + 1));
       prevBtn?.addEventListener('click', () => goTo(current - 1));
-
-      /* ⚠️ Supprimé : plus de pause au survol de la souris.
-         Le slider continue de tourner même quand la souris est dessus. */
 
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
@@ -1100,6 +1366,94 @@
         nav.style.boxShadow = '0 10px 30px rgba(8, 18, 38, 0.1)';
       }
     });
+
+    /* ============================================ */
+    /* ---- WHATSAPP : Produits, Devis & Formulaire ---- */
+    /* ============================================ */
+    (function initWhatsAppLinks() {
+      const PHONE = '22656513009'; // +226 56 51 30 09
+      const BASE  = 'https://wa.me/' + PHONE;
+      const SITE_SIGNATURE = '\n\n📩 _Message envoyé depuis le site IPSS Security_';
+
+      /* ---- 1) Boutons "Commander" → message produit ---- */
+      document.querySelectorAll('[data-wa-product]').forEach(el => {
+        const produit = el.getAttribute('data-wa-product');
+        const msg =
+          'Bonjour IPSS Security 👋\n\n' +
+          'Je souhaite *commander* le produit suivant :\n' +
+          '📦 ' + produit + '\n\n' +
+          'Merci de me communiquer :\n' +
+          '• Le prix\n' +
+          '• La disponibilité\n' +
+          '• Les modalités de livraison' +
+          SITE_SIGNATURE;
+        el.href = BASE + '?text=' + encodeURIComponent(msg);
+        el.target = '_blank';
+        el.rel = 'noopener';
+      });
+
+      /* ---- 2) Boutons "Devis" → message devis ---- */
+      document.querySelectorAll('[data-wa-devis]').forEach(el => {
+        const source = el.getAttribute('data-wa-devis'); // header | hero | produits
+        let contexte = '';
+        if (source === 'produits') {
+          contexte = '\n\n🛒 Contexte : achat / location de matériel de sécurité.';
+        } else {
+          contexte = '\n\n🛡️ Contexte : demande de devis pour vos services de sécurité.';
+        }
+        const msg =
+          'Bonjour IPSS Security 👋\n\n' +
+          'Je souhaite obtenir un *devis gratuit* pour vos services.' +
+          contexte +
+          '\n\nMerci de me recontacter rapidement.' +
+          SITE_SIGNATURE;
+        el.href = BASE + '?text=' + encodeURIComponent(msg);
+        el.target = '_blank';
+        el.rel = 'noopener';
+      });
+
+      /* ---- 3) Formulaire de contact → WhatsApp ---- */
+      const form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const name    = (form.querySelector('#name')?.value || '').trim();
+          const phone   = (form.querySelector('#phone')?.value || '').trim();
+          const service = (form.querySelector('#service')?.value || '').trim();
+          const message = (form.querySelector('#message')?.value || '').trim();
+
+          if (!name || !phone) {
+            alert('Merci de renseigner votre nom et votre téléphone.');
+            return;
+          }
+
+          const texte =
+            'Bonjour IPSS Security 👋\n\n' +
+            '*📋 Nouvelle demande de devis*\n\n' +
+            '👤 *Nom* : ' + name + '\n' +
+            '📞 *Téléphone* : ' + phone + '\n' +
+            '🛡️ *Service* : ' + service + '\n' +
+            (message ? '💬 *Message* : ' + message + '\n' : '') +
+            '\nMerci de me recontacter rapidement.' +
+            SITE_SIGNATURE;
+
+          const url = BASE + '?text=' + encodeURIComponent(texte);
+          window.open(url, '_blank', 'noopener');
+
+          const btn = form.querySelector('button[type="submit"]');
+          if (btn) {
+            const original = btn.textContent;
+            btn.textContent = '✓ Ouverture de WhatsApp...';
+            btn.disabled = true;
+            setTimeout(() => {
+              btn.textContent = original;
+              btn.disabled = false;
+            }, 2200);
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>
