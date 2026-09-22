@@ -6,7 +6,7 @@
   <title>IPSS — International Protective Services and Security</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     /* ---- Reset & Variables ---- */
     :root {
@@ -31,15 +31,16 @@
       font-family: 'Inter', sans-serif;
       color: var(--ink);
       background: var(--white);
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 16px;
       overflow-x: hidden;
     }
     h1, h2, h3, h4 {
-      font-family: 'Oswald', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      font-weight: 600;
-      line-height: 1.15;
+      letter-spacing: 0.01em;
+      font-weight: 700;
+      line-height: 1.2;
     }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
@@ -87,7 +88,7 @@
     .brand .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; transition: transform 0.5s ease; }
     .brand .logo:hover { transform: scale(1.08) rotate(5deg); box-shadow: 0 8px 24px rgba(232, 99, 12, 0.4); }
     .brand .logo:hover img { transform: scale(1.05); }
-    .brand .name { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 0.03em; line-height: 1; transition: color 0.3s ease; }
+    .brand .name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.01em; line-height: 1; transition: color 0.3s ease; }
     .brand:hover .name { color: var(--orange-600); }
     .brand .name small { display: block; font-family: 'IBM Plex Mono', monospace; text-transform: none; letter-spacing: 0.04em; font-size: 11px; color: var(--ink-muted); font-weight: 400; margin-top: 4px; }
     nav.links { display: flex; gap: 30px; align-items: center; }
@@ -95,7 +96,7 @@
     nav.links a:hover { color: var(--orange-600); }
     nav.links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--orange-600); transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     nav.links a:hover::after { width: 100%; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange-600); color: var(--white); font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 13.5px; padding: 13px 28px; border: none; cursor: pointer; border-radius: var(--radius); transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; box-shadow: 0 6px 16px rgba(232, 99, 12, 0.28); white-space: nowrap; position: relative; overflow: hidden; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange-600); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 13px; padding: 13px 28px; border: none; cursor: pointer; border-radius: var(--radius); transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; box-shadow: 0 6px 16px rgba(232, 99, 12, 0.28); white-space: nowrap; position: relative; overflow: hidden; }
     .btn::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); transition: left 0.5s ease; }
     .btn:hover::before { left: 100%; }
     .btn:hover { background: var(--navy-950); transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 28px rgba(232, 99, 12, 0.4); }
@@ -298,7 +299,7 @@
     .section-label::before { content: ""; width: 26px; height: 2px; background: var(--orange-600); transition: width 0.4s ease; }
     .section-head:hover .section-label::before { width: 46px; }
     .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 56px; flex-wrap: wrap; }
-    .section-head h2 { font-size: clamp(28px, 3.4vw, 40px); max-width: 580px; }
+    .section-head h2 { font-size: clamp(26px, 3.2vw, 38px); max-width: 580px; }
     .section-head p { color: var(--ink-muted); max-width: 420px; font-size: 15px; text-transform: none; font-family: 'Inter', sans-serif; letter-spacing: 0; }
 
     /* ---- About ---- */
@@ -311,7 +312,7 @@
     .badge-card:hover { transform: translateY(-6px) scale(1.03); }
     .badge-card .mono { font-size: 11.5px; color: var(--orange-500); letter-spacing: 0.04em; display: block; margin-bottom: 6px; }
     .badge-card p { font-size: 13.5px; color: #D7DEEA; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; }
-    .about-copy h2 { font-size: clamp(26px, 3.2vw, 36px); margin-bottom: 22px; }
+    .about-copy h2 { font-size: clamp(24px, 3vw, 34px); margin-bottom: 22px; }
     .about-copy p { color: var(--ink-muted); font-size: 15.5px; margin-bottom: 16px; }
     .about-copy p strong { color: var(--ink); font-weight: 600; }
     .about-points { list-style: none; margin-top: 26px; display: grid; gap: 14px; }
@@ -344,7 +345,7 @@
     .service-card .card-img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(8, 18, 38, 0.4) 100%); pointer-events: none; transition: opacity 0.4s ease; }
     .service-card:hover .card-img-wrap::after { opacity: 0.7; }
     .service-card .card-body { padding: 32px 32px 34px; flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2; }
-    .service-card .card-body h3 { font-size: 22px; margin-bottom: 12px; color: var(--navy-950); transition: color 0.3s ease; }
+    .service-card .card-body h3 { font-size: 20px; margin-bottom: 12px; color: var(--navy-950); transition: color 0.3s ease; }
     .service-card:hover .card-body h3 { color: var(--orange-600); }
     .service-card .card-body p { color: var(--ink-muted); font-size: 15px; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; flex: 1; line-height: 1.7; }
     .service-card .card-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--orange-600); font-weight: 600; transition: gap 0.3s ease, color 0.3s ease; align-self: flex-start; }
@@ -361,7 +362,7 @@
     .sector-card::before { content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--orange-600); transition: height 0.4s ease; }
     .sector-card:hover::before { height: 100%; }
     .sector-card:hover { border-color: var(--orange-600); transform: translateY(-6px); background: rgba(232, 99, 12, 0.06); box-shadow: 0 12px 30px rgba(232, 99, 12, 0.15); }
-    .sector-card h3 { font-size: 17px; margin-bottom: 10px; transition: color 0.3s ease; }
+    .sector-card h3 { font-size: 16px; margin-bottom: 10px; transition: color 0.3s ease; }
     .sector-card:hover h3 { color: var(--orange-500); }
     .sector-card p { font-size: 13.5px; color: #AEB9CC; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; }
 
@@ -389,7 +390,7 @@
 
     .product-media {
       position: relative;
-      height: 220px;
+      height: 340px;
       overflow: hidden;
       background: var(--paper);
     }
@@ -422,19 +423,19 @@
 
     .product-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
     .product-body h3 {
-      font-size: 18px;
+      font-size: 16.5px;
       margin-bottom: 8px;
       color: var(--navy-950);
       transition: color 0.3s ease;
     }
     .product-card:hover .product-body h3 { color: var(--orange-600); }
     .product-body p {
-      font-size: 14px;
+      font-size: 14.8px;
       color: var(--ink-muted);
       text-transform: none;
       letter-spacing: 0;
       font-family: 'Inter', sans-serif;
-      line-height: 1.65;
+      line-height: 1.7;
       flex: 1;
     }
     .product-link {
@@ -478,11 +479,11 @@
       margin-bottom: 6px;
     }
     .products-cta .cta-text strong {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600;
-      font-size: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
     }
 
     /* ---- Testimonials ---- */
@@ -504,7 +505,7 @@
     .contact-grid:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
     .contact-info { background: var(--navy-950); color: var(--white); padding: 48px 40px; position: relative; overflow: hidden; }
     .contact-info::before { content: ""; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(232, 99, 12, 0.1) 0%, transparent 70%); animation: float 6s ease-in-out infinite; pointer-events: none; }
-    .contact-info h3 { font-size: 24px; margin-bottom: 14px; }
+    .contact-info h3 { font-size: 22px; margin-bottom: 14px; }
     .contact-info > p { color: #AEB9CC; font-size: 14.5px; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; margin-bottom: 36px; }
     .info-item { display: flex; gap: 14px; margin-bottom: 26px; align-items: flex-start; transition: transform 0.3s ease; position: relative; z-index: 1; }
     .info-item:hover { transform: translateX(6px); }
@@ -518,7 +519,7 @@
     .social-row a { width: 38px; height: 38px; border: 1px solid rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center; font-size: 14px; border-radius: 50%; transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .social-row a:hover { background: var(--orange-600); border-color: var(--orange-600); transform: translateY(-4px) scale(1.1); }
     .contact-form { background: var(--white); padding: 48px 44px; }
-    .contact-form h3 { font-size: 20px; margin-bottom: 6px; }
+    .contact-form h3 { font-size: 19px; margin-bottom: 6px; }
     .contact-form > p { color: var(--ink-muted); font-size: 14px; text-transform: none; letter-spacing: 0; margin-bottom: 30px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .field { margin-bottom: 18px; position: relative; }
@@ -537,7 +538,7 @@
     .foot-brand .brand .logo { width: 56px; height: 56px; border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; border: 2px solid var(--orange-600); padding: 3px; overflow: hidden; transition: transform 0.4s ease; }
     .foot-brand .brand .logo:hover { transform: scale(1.08) rotate(-5deg); }
     .foot-brand .brand .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-    .foot-brand .brand .name { color: var(--white); font-size: 20px; }
+    .foot-brand .brand .name { color: var(--white); font-size: 18px; }
     .foot-brand p { font-size: 13.5px; color: #8593AC; margin-top: 16px; max-width: 280px; }
     footer h4 { color: var(--white); font-size: 13px; letter-spacing: 0.06em; margin-bottom: 18px; }
     footer ul { list-style: none; display: grid; gap: 11px; }
@@ -561,6 +562,7 @@
       .sector-grid { grid-template-columns: repeat(2, 1fr); }
       .marquee-item { width: 260px; height: 170px; }
       .products-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+      .product-media { height: 300px; }
     }
 
     @media (max-width: 920px) {
@@ -572,7 +574,7 @@
       .form-row { grid-template-columns: 1fr; }
       .foot-grid { gap: 32px; }
       .brand .logo { width: 60px; height: 60px; }
-      .brand .name { font-size: 20px; }
+      .brand .name { font-size: 19px; }
       .brand .name small { font-size: 10px; }
       .header-actions .btn:not(.btn-facebook) { display: none; }
       .header-actions { gap: 8px; }
@@ -600,7 +602,7 @@
       .nav { padding: 10px 14px; gap: 8px; }
       .brand { gap: 10px; flex: 1; min-width: 0; }
       .brand .logo { width: 48px; height: 48px; flex: none; }
-      .brand .name { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .brand .name { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .brand .name small { font-size: 8.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .btn-facebook { width: 44px; height: 44px; flex: none; }
       .btn-facebook svg { width: 20px; height: 20px; }
@@ -612,7 +614,7 @@
 
       .hero-slider { min-height: 620px; }
       .slide-content { padding: 100px 20px 130px; }
-      .slide h1 { font-size: clamp(28px, 8.2vw, 38px); }
+      .slide h1 { font-size: clamp(26px, 7.8vw, 34px); }
       .slide p { font-size: 14.5px; margin: 18px 0 26px; }
       .slide .eyebrow { font-size: 11px; margin-bottom: 14px; }
 
@@ -626,17 +628,18 @@
       .slider-arrows { right: 16px; bottom: 24px; gap: 6px; }
       .slider-arrows button { width: 40px; height: 40px; font-size: 18px; }
 
-      .section-head h2 { font-size: 24px; }
+      .section-head h2 { font-size: 22px; }
       .section-head p { font-size: 14px; }
 
       .service-card .card-body { padding: 24px 22px 26px; }
-      .service-card .card-body h3 { font-size: 19px; }
+      .service-card .card-body h3 { font-size: 17px; }
       .service-card .card-body p { font-size: 14px; }
 
       .products-grid { grid-template-columns: 1fr; gap: 20px; }
-      .product-media { height: 200px; }
+      .product-media { height: 260px; }
+      .product-body h3 { font-size: 15.5px; }
       .products-cta { padding: 22px 22px; flex-direction: column; align-items: flex-start; text-align: left; }
-      .products-cta .cta-text strong { font-size: 17px; }
+      .products-cta .cta-text strong { font-size: 16px; }
 
       .wa-float { width: 50px; height: 50px; right: 16px; bottom: 16px; }
       .wa-float svg { width: 24px; height: 24px; }
@@ -646,7 +649,7 @@
     }
 
     @media (max-width: 400px) {
-      .brand .name { font-size: 13px; }
+      .brand .name { font-size: 12.5px; }
       .brand .name small { display: none; }
       .brand .logo { width: 42px; height: 42px; }
       .btn-facebook { width: 40px; height: 40px; }
@@ -1321,7 +1324,7 @@
     })();
 
     /* ============================================ */
-    /* ---- Reveal on scroll (avec délai en cascade) ---- */
+    /* ---- Reveal on scroll ---- */
     /* ============================================ */
     const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     const observer = new IntersectionObserver((entries) => {
@@ -1394,7 +1397,7 @@
 
       /* ---- 2) Boutons "Devis" → message devis ---- */
       document.querySelectorAll('[data-wa-devis]').forEach(el => {
-        const source = el.getAttribute('data-wa-devis'); // header | hero | produits
+        const source = el.getAttribute('data-wa-devis');
         let contexte = '';
         if (source === 'produits') {
           contexte = '\n\n🛒 Contexte : achat / location de matériel de sécurité.';
