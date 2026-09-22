@@ -59,6 +59,11 @@
     @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes kenburns { from { transform: scale(1.03); } to { transform: scale(1.18); } }
+    @keyframes formHighlight {
+      0%   { box-shadow: inset 0 0 0 0 rgba(232, 99, 12, 0); }
+      30%  { box-shadow: inset 0 0 0 4px rgba(232, 99, 12, 0.55); }
+      100% { box-shadow: inset 0 0 0 0 rgba(232, 99, 12, 0); }
+    }
 
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -562,6 +567,11 @@
     .contact-form .btn { width: 100%; justify-content: center; }
     .form-note { font-size: 12.5px; color: var(--ink-muted); margin-top: 8px; }
 
+    /* ---- Highlight du formulaire quand on clique sur un devis ---- */
+    .contact-form.form-highlight {
+      animation: formHighlight 1.6s ease;
+    }
+
     /* ---- Footer ---- */
     footer { background: var(--navy-950); color: #AEB9CC; padding: 64px 0 0; }
     .foot-grid { display: grid; grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
@@ -723,7 +733,7 @@
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
-        <a href="https://wa.me/22656513009" class="btn" data-wa-devis="header">Devis gratuit</a>
+        <a href="#contact" class="btn" data-devis-scroll>Devis gratuit</a>
         <a href="https://web.facebook.com/ipsssecurite" target="_blank" rel="noopener" class="btn-facebook" aria-label="Page Facebook IPSS Security">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -749,7 +759,7 @@
           <h1>IPSS, une <em>société</em> de sécurité privée à votre service.</h1>
           <p>Gardiennage, protection rapprochée, surveillance et formations. Une équipe formée et du matériel de pointe pour protéger vos biens et vos personnes, partout au Burkina Faso.</p>
           <div class="hero-ctas">
-            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Devis gratuit</a>
+            <a href="#contact" class="btn" data-devis-scroll>Devis gratuit</a>
             <a href="#services" class="btn outline">Nos Services</a>
           </div>
         </div>
@@ -764,7 +774,7 @@
           <h1>Des <em>agents formés</em> pour veiller sur vos sites.</h1>
           <p>Présence dissuasive, contrôle d'accès et surveillance continue. Nos équipes assurent la sécurité de vos locaux, de jour comme de nuit, sur tout le territoire burkinabè.</p>
           <div class="hero-ctas">
-            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Demander un devis</a>
+            <a href="#contact" class="btn" data-devis-scroll>Demander un devis</a>
             <a href="service-gardiennage.html" class="btn outline">Nos prestations</a>
           </div>
         </div>
@@ -779,7 +789,7 @@
           <h1>Vos <em>valeurs</em> et vos équipes, protégées à chaque trajet.</h1>
           <p>Transport de fonds, escorte de personnalités et sécurisation de convois sensibles. Une expertise éprouvée pour vos déplacements stratégiques.</p>
           <div class="hero-ctas">
-            <a href="https://wa.me/22656513009" class="btn" data-wa-devis="hero">Nous contacter</a>
+            <a href="#contact" class="btn" data-devis-scroll>Nous contacter</a>
             <a href="service-escorte.html" class="btn outline">En savoir plus</a>
           </div>
         </div>
@@ -1402,14 +1412,14 @@
     });
 
     /* ============================================ */
-    /* ---- WHATSAPP : Produits, Devis & Formulaire ---- */
+    /* ---- WHATSAPP & DEVIS ---- */
     /* ============================================ */
     (function initWhatsAppLinks() {
       const PHONE = '22656513009'; // +226 56 51 30 09
       const BASE  = 'https://wa.me/' + PHONE;
       const SITE_SIGNATURE = '\n\n📩 _Message envoyé depuis le site IPSS Security_';
 
-      /* ---- 1) Boutons "Commander" → message produit ---- */
+      /* ---- 1) Boutons "Commander" des produits → WhatsApp direct (inchangé) ---- */
       document.querySelectorAll('[data-wa-product]').forEach(el => {
         const produit = el.getAttribute('data-wa-product');
         const msg =
@@ -1426,7 +1436,7 @@
         el.rel = 'noopener';
       });
 
-      /* ---- 2) Boutons "Devis" → message devis ---- */
+      /* ---- 2) Bouton "Commander via WhatsApp" (bas de la section produits) → WhatsApp direct ---- */
       document.querySelectorAll('[data-wa-devis]').forEach(el => {
         const source = el.getAttribute('data-wa-devis');
         let contexte = '';
@@ -1446,7 +1456,33 @@
         el.rel = 'noopener';
       });
 
-      /* ---- 3) Formulaire de contact → WhatsApp ---- */
+      /* ---- 3) Boutons "Devis" (header + hero) → scroll vers le formulaire ---- */
+      document.querySelectorAll('[data-devis-scroll]').forEach(el => {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const section = document.getElementById('contact');
+          const formBox = document.querySelector('.contact-form');
+          const nameInput = document.getElementById('name');
+
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+
+          // Petit halo orange sur le formulaire pour attirer l'œil
+          if (formBox) {
+            formBox.classList.remove('form-highlight');
+            // Force le navigateur à rejouer l'animation
+            void formBox.offsetWidth;
+            formBox.classList.add('form-highlight');
+          }
+
+          // Place le curseur dans le champ "Nom" après le scroll
+          setTimeout(() => { nameInput?.focus(); }, 700);
+        });
+      });
+
+      /* ---- 4) Formulaire de contact → WhatsApp de l'entreprise ---- */
       const form = document.getElementById('contactForm');
       if (form) {
         form.addEventListener('submit', function (e) {
