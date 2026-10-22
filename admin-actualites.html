@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Admin — Actualités IPSS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+  :root{--navy:#081226;--navy2:#0F2647;--o:#E8630C;--o2:#F17B1F;--paper:#F6F4EF;--w:#fff;--ink:#14181F;--muted:#5B6472;--line:#E4E0D6;--danger:#DC2626;--success:#16A34A;--r:8px}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;min-height:100vh}
+  h1,h2,h3{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.01em;font-weight:700;line-height:1.2}
+
+  /* LOGIN */
+  .auth-view{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%)}
+  .auth-view.show{display:flex}
+  .auth-card{background:var(--w);padding:44px 36px;border-radius:var(--r);width:100%;max-width:420px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4);border-top:6px solid var(--o)}
+  .auth-card h1{font-size:22px;margin-bottom:6px;color:var(--navy)}
+  .auth-card .sub{color:var(--muted);font-size:14px;margin-bottom:28px}
+
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px;font-weight:600}
+  .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--w);padding:12px 14px;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);border-radius:var(--r);transition:.2s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,99,12,.15)}
+  .field textarea{resize:vertical;min-height:100px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--o);color:var(--w);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:12.5px;padding:13px 24px;border:none;cursor:pointer;border-radius:var(--r);transition:.25s;box-shadow:0 6px 16px rgba(232,99,12,.28);text-decoration:none;font-family:'Montserrat',sans-serif}
+  .btn:hover{background:var(--navy);transform:translateY(-2px)}
+  .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .btn.block{width:100%}
+  .btn.outline{background:transparent;border:1.5px solid var(--line);color:var(--ink);box-shadow:none}
+  .btn.outline:hover{background:var(--navy);color:var(--w);border-color:var(--navy)}
+  .btn.danger{background:var(--danger);box-shadow:0 6px 16px rgba(220,38,38,.3)}
+  .btn.danger:hover{background:#991b1b}
+  .btn.sm{padding:8px 14px;font-size:11px}
+
+  /* DASHBOARD */
+  .dash{min-height:100vh;display:none;flex-direction:column}
+  .dash.show{display:flex}
+  .dash-header{background:var(--navy);color:var(--w);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:3px solid var(--o)}
+  .dash-header h1{font-size:16px}
+  .dash-header .who{font-size:12px;color:#AEB9CC;font-family:'IBM Plex Mono',monospace}
+  .dash-main{padding:32px 24px;max-width:1200px;margin:0 auto;width:100%;flex:1}
+  .dash-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+  .dash-toolbar h2{font-size:22px;color:var(--navy)}
+  .dash-toolbar .stats{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)}
+
+  .news-list{display:grid;gap:14px}
+  .news-item{background:var(--w);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:center;transition:.2s}
+  .news-item:hover{border-color:var(--o);box-shadow:0 4px 14px rgba(8,18,38,.06)}
+  .news-item img{width:90px;height:68px;object-fit:cover;border-radius:4px;background:var(--paper)}
+  .news-item .info h3{font-size:15px;margin-bottom:4px;color:var(--navy);text-transform:none;letter-spacing:0;font-weight:700}
+  .news-item .meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.03em}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;text-transform:uppercase;margin-left:8px;font-weight:600}
+  .badge.published{background:#dcfce7;color:#166534}
+  .badge.draft{background:#fef3c7;color:#92400e}
+  .news-item .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(8,18,38,.6);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:24px;overflow-y:auto}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--w);border-radius:var(--r);max-width:720px;width:100%;margin:40px 0;box-shadow:0 30px 60px -20px rgba(0,0,0,.3);border-top:6px solid var(--o)}
+  .modal-head{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .modal-head h2{font-size:18px;color:var(--navy)}
+  .modal-head button{background:none;border:none;font-size:26px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal-body{padding:24px 26px}
+  .modal-foot{padding:16px 26px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
+
+  .image-drop{border:2px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--paper);display:block}
+  .image-drop:hover{border-color:var(--o);background:#FDF3EB}
+  .image-drop.has-image{padding:0;border:none;background:none}
+  .image-drop img{max-width:100%;max-height:220px;border-radius:var(--r);display:block;margin:0 auto}
+  .image-drop .hint{font-size:13px;color:var(--muted);margin-top:8px}
+  .image-drop input[type="file"]{display:none}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--navy);color:var(--w);padding:14px 22px;border-radius:var(--r);font-size:14px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.3);opacity:0;transition:.3s;z-index:200;max-width:calc(100% - 48px)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.success{border-left:4px solid var(--success)}
+  .toast.error{border-left:4px solid var(--danger)}
+
+  @media (max-width:640px){
+    .news-item{grid-template-columns:1fr}
+    .news-item img{width:100%;height:150px}
+    .auth-card{padding:32px 22px}
+    .dash-main{padding:20px 14px}
+    .modal{margin:16px 0}
+    .modal-body{padding:20px}
+    .news-item .actions .btn{flex:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN ========== -->
+<div id="loginView" class="auth-view show">
+  <div class="auth-card">
+    <h1>IPSS — Admin</h1>
+    <p class="sub">Gestion des actualités</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="pwd">Mot de passe</label>
+        <input type="password" id="pwd" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn block" id="loginBtn">Se connecter</button>
+      <p id="loginError" style="color:var(--danger);font-size:13px;margin-top:12px;text-align:center;display:none;"></p>
+    </form>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD ========== -->
+<div id="dashView" class="dash">
+  <header class="dash-header">
+    <h1>IPSS — Actualités</h1>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="who">Admin</span>
+      <button class="btn sm outline" id="logoutBtn" style="color:#fff;border-color:rgba(255,255,255,.3);">Déconnexion</button>
+    </div>
+  </header>
+  <main class="dash-main">
+    <div class="dash-toolbar">
+      <div>
+        <h2>Liste des actualités</h2>
+        <div class="stats" id="stats"></div>
+      </div>
+      <button class="btn" id="newBtn">+ Nouvelle actualité</button>
+    </div>
+    <div id="newsList" class="news-list"></div>
+  </main>
+</div>
+
+<!-- ========== MODAL FORM ========== -->
+<div id="formModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Nouvelle actualité</h2>
+      <button type="button" id="closeModal">×</button>
+    </div>
+    <form id="newsForm">
+      <div class="modal-body">
+        <input type="hidden" id="newsId" />
+        <div class="field">
+          <label for="title">Titre *</label>
+          <input type="text" id="title" required maxlength="180" />
+        </div>
+        <div class="field">
+          <label for="excerpt">Résumé court (page d'accueil — 200 car. max)</label>
+          <textarea id="excerpt" maxlength="200" style="min-height:70px;"></textarea>
+        </div>
+        <div class="field">
+          <label for="content">Contenu complet (page de détail, facultatif)</label>
+          <textarea id="content"></textarea>
+        </div>
+        <div class="field">
+          <label>Image à la une</label>
+          <label for="imageInput" class="image-drop" id="imageDrop">
+            <div id="imagePreviewWrap">
+              <div style="font-size:32px;">📷</div>
+              <div class="hint">Cliquez pour choisir une image (JPG, PNG, WebP — max 5 Mo)</div>
+            </div>
+            <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" />
+          </label>
+        </div>
+        <div class="field">
+          <label for="published">Statut</label>
+          <select id="published">
+            <option value="true">Publié (visible sur le site)</option>
+            <option value="false">Brouillon (invisible)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn outline" id="cancelBtn">Annuler</button>
+        <button type="submit" class="btn" id="saveBtn">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(function () {
+  // ================= CONFIG =================
+  const SUPABASE_URL = 'https://otdiywrvzappbmjfkkyi.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY';
+  const ADMIN_PASSWORD = 'ipss2026';   // ← CHANGE-LE
+  const BUCKET = 'ipss-news';
+  const TABLE  = 'ipss_news';
+  // ==========================================
+
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const $  = s => document.querySelector(s);
+
+  const loginView = $('#loginView'), dashView = $('#dashView');
+  const loginForm = $('#loginForm'), loginError = $('#loginError');
+  const newsList = $('#newsList'), formModal = $('#formModal');
+  const newsForm = $('#newsForm'), toast = $('#toast');
+
+  let allNews = [];
+  let currentImageUrl = '';
+
+  function showToast(msg, type = 'success') {
+    toast.textContent = msg;
+    toast.className = 'toast show ' + type;
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function fmt(iso){ return new Date(iso).toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}); }
+  function slugify(s){ return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80); }
+
+  // ---------- AUTH ----------
+  function checkAuth() {
+    if (sessionStorage.getItem('ipss_admin') === 'true') {
+      loginView.classList.remove('show');
+      dashView.classList.add('show');
+      loadNews();
+    } else {
+      loginView.classList.add('show');
+      dashView.classList.remove('show');
+      setTimeout(() => $('#pwd').focus(), 100);
+    }
+  }
+
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if ($('#pwd').value === ADMIN_PASSWORD) {
+      sessionStorage.setItem('ipss_admin', 'true');
+      loginError.style.display = 'none';
+      checkAuth();
+    } else {
+      loginError.textContent = 'Mot de passe incorrect';
+      loginError.style.display = 'block';
+      $('#pwd').value = '';
+    }
+  });
+
+  $('#logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('ipss_admin');
+    checkAuth();
+  });
+
+  // ---------- LISTE ----------
+  async function loadNews() {
+    newsList.innerHTML = '<p style="color:var(--muted);">Chargement...</p>';
+    const { data, error } = await db.from(TABLE).select('*').order('published_at', { ascending: false });
+    if (error) {
+      newsList.innerHTML = `<p style="color:var(--danger);">Erreur : ${esc(error.message)}</p>`;
+      return;
+    }
+    allNews = data || [];
+    const pub = allNews.filter(n => n.published).length;
+    const draft = allNews.length - pub;
+    $('#stats').textContent = `${allNews.length} article(s) · ${pub} publié(s) · ${draft} brouillon(s)`;
+
+    if (allNews.length === 0) {
+      newsList.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted);background:var(--w);border:1px dashed var(--line);border-radius:8px;">Aucune actualité. Clique sur "+ Nouvelle actualité" pour commencer.</div>';
+      return;
+    }
+
+    newsList.innerHTML = allNews.map(n => `
+      <div class="news-item">
+        <img src="${esc(n.image_url || 'ipss/logo.jpg')}" alt="" />
+        <div class="info">
+          <h3>${esc(n.title)}</h3>
+          <div class="meta">
+            ${fmt(n.published_at)}
+            <span class="badge ${n.published ? 'published' : 'draft'}">${n.published ? 'Publié' : 'Brouillon'}</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn sm outline" data-edit="${n.id}">Modifier</button>
+          <button class="btn sm danger" data-del="${n.id}">Suppr.</button>
+        </div>
+      </div>`).join('');
+
+    newsList.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openForm(b.dataset.edit)));
+    newsList.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => deleteNews(b.dataset.del)));
+  }
+
+  // ---------- MODAL ----------
+  function openForm(id) {
+    newsForm.reset();
+    currentImageUrl = '';
+    $('#imageInput').value = '';
+    updatePreview(null);
+
+    if (id) {
+      const n = allNews.find(x => x.id === id);
+      if (!n) return;
+      $('#modalTitle').textContent = "Modifier l'actualité";
+      $('#newsId').value = n.id;
+      $('#title').value = n.title;
+      $('#excerpt').value = n.excerpt || '';
+      $('#content').value = n.content || '';
+      $('#published').value = String(n.published);
+      currentImageUrl = n.image_url || '';
+      if (currentImageUrl) updatePreview(currentImageUrl);
+    } else {
+      $('#modalTitle').textContent = 'Nouvelle actualité';
+      $('#newsId').value = '';
+    }
+    formModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => $('#title').focus(), 100);
+  }
+  function closeForm() {
+    formModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  $('#newBtn').addEventListener('click', () => openForm());
+  $('#closeModal').addEventListener('click', closeForm);
+  $('#cancelBtn').addEventListener('click', closeForm);
+  formModal.addEventListener('click', e => { if (e.target === formModal) closeForm(); });
+
+  function updatePreview(src) {
+    const wrap = $('#imagePreviewWrap'), drop = $('#imageDrop');
+    if (src) {
+      wrap.innerHTML = `<img src="${esc(src)}" alt="" /><div class="hint" style="margin-top:8px;">Clique pour remplacer</div>`;
+      drop.classList.add('has-image');
+    } else {
+      wrap.innerHTML = `<div style="font-size:32px;">📷</div><div class="hint">Cliquez pour choisir une image (JPG, PNG, WebP — max 5 Mo)</div>`;
+      drop.classList.remove('has-image');
+    }
+  }
+
+  // ---------- UPLOAD ----------
+  $('#imageInput').addEventListener('change', async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('Image trop lourde (max 5 Mo)', 'error'); return; }
+    updatePreview(URL.createObjectURL(file));
+    showToast('Upload en cours...');
+
+    const ext = file.name.split('.').pop().toLowerCase();
+    const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await db.storage.from(BUCKET).upload(filename, file, { contentType: file.type, upsert: false });
+    if (error) { showToast('Erreur upload : ' + error.message, 'error'); return; }
+
+    const { data: pub } = db.storage.from(BUCKET).getPublicUrl(filename);
+    currentImageUrl = pub.publicUrl;
+    updatePreview(currentImageUrl);
+    showToast('Image uploadée ✓');
+  });
+
+  // ---------- SAVE ----------
+  newsForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#saveBtn');
+    btn.disabled = true; btn.textContent = 'Enregistrement...';
+
+    const id = $('#newsId').value;
+    const title = $('#title').value.trim();
+    const payload = {
+      title,
+      excerpt: $('#excerpt').value.trim(),
+      content: $('#content').value.trim(),
+      image_url: currentImageUrl || null,
+      published: $('#published').value === 'true'
+    };
+    if (!id) payload.slug = (slugify(title) || ('actus-' + Date.now())) + '-' + Math.random().toString(36).slice(2,6);
+
+    let error;
+    if (id) ({ error } = await db.from(TABLE).update(payload).eq('id', id));
+    else     ({ error } = await db.from(TABLE).insert(payload));
+
+    btn.disabled = false; btn.textContent = 'Enregistrer';
+    if (error) { showToast('Erreur : ' + error.message, 'error'); return; }
+
+    showToast(id ? 'Actualité modifiée ✓' : 'Actualité créée ✓');
+    closeForm();
+    loadNews();
+  });
+
+  // ---------- DELETE ----------
+  async function deleteNews(id) {
+    if (!confirm('Supprimer cette actualité ? Cette action est irréversible.')) return;
+    const { error } = await db.from(TABLE).delete().eq('id', id);
+    if (error) { showToast('Erreur : ' + error.message, 'error'); return; }
+    showToast('Actualité supprimée');
+    loadNews();
+  }
+
+  // ---------- BOOT ----------
+  checkAuth();
+})();
+</script>
+</body>
+</html>
