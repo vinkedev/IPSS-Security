@@ -64,6 +64,7 @@
       30%  { box-shadow: inset 0 0 0 4px rgba(232, 99, 12, 0.55); }
       100% { box-shadow: inset 0 0 0 0 rgba(232, 99, 12, 0); }
     }
+    @keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -138,161 +139,39 @@
     .btn-facebook:hover svg { transform: rotate(8deg) scale(1.1); }
 
     /* ============================================ */
-    /* ---- HERO SLIDER (3 DIAPOSITIVES) ---- */
+    /* ---- HERO SLIDER ---- */
     /* ============================================ */
-    .hero-slider {
-      position: relative;
-      min-height: 700px;
-      overflow: hidden;
-      background: var(--navy-950);
-    }
+    .hero-slider { position: relative; min-height: 700px; overflow: hidden; background: var(--navy-950); }
     .slides { position: absolute; inset: 0; }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1.3s;
-      will-change: opacity;
-    }
-    .slide.is-active {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
-    }
-
-    .slide-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center 30%;
-      background-repeat: no-repeat;
-      transform: scale(1.03);
-      transform-origin: center;
-      will-change: transform;
-    }
+    .slide { position: absolute; inset: 0; display: flex; align-items: flex-end; opacity: 0; visibility: hidden; transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1.3s; will-change: opacity; }
+    .slide.is-active { opacity: 1; visibility: visible; transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s; }
+    .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; background-repeat: no-repeat; transform: scale(1.03); transform-origin: center; will-change: transform; }
     .slide.is-active .slide-bg { animation: kenburns 7s ease-out forwards; }
-
-    .slide-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(8, 18, 38, 0.5) 0%, rgba(8, 18, 38, 0.72) 45%, rgba(8, 18, 38, 0.97) 100%);
-    }
-
-    .slide-content {
-      position: relative;
-      z-index: 2;
-      color: var(--white);
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      padding: 130px 24px 150px;
-    }
+    .slide-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 18, 38, 0.5) 0%, rgba(8, 18, 38, 0.72) 45%, rgba(8, 18, 38, 0.97) 100%); }
+    .slide-content { position: relative; z-index: 2; color: var(--white); max-width: 1200px; margin: 0 auto; width: 100%; padding: 130px 24px 150px; }
     .slide-content > * { opacity: 0; }
     .slide.is-active .eyebrow { animation: fadeUp 0.9s ease 0.15s both; }
     .slide.is-active .slide-content h1 { animation: fadeUp 0.9s ease 0.30s both; }
     .slide.is-active .slide-content p { animation: fadeUp 0.9s ease 0.45s both; }
     .slide.is-active .hero-ctas { animation: fadeUp 0.9s ease 0.60s both; }
-
     .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--orange-500); text-transform: uppercase; margin-bottom: 18px; }
     .eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--orange-600); border-radius: 50%; animation: pulseGlow 2s infinite; }
-
     .slide h1 { font-size: clamp(36px, 5.6vw, 60px); max-width: 820px; }
     .slide h1 em { font-style: normal; color: var(--orange-500); }
     .slide p { font-size: 16px; color: #D7DEEA; max-width: 600px; margin: 22px 0 34px; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0; }
-
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-
-    /* ---- Progress bar ---- */
-    .slider-progress {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      z-index: 8;
-      overflow: hidden;
-    }
-    .slider-progress span {
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--orange-600), var(--orange-500));
-      box-shadow: 0 0 16px rgba(232, 99, 12, 0.9);
-    }
-
-    /* ---- Dots ---- */
-    .slider-dots {
-      position: absolute;
-      left: 50%;
-      bottom: 36px;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      z-index: 7;
-    }
-    .slider-dots button {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.35);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
-    }
+    .slider-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, 0.1); z-index: 8; overflow: hidden; }
+    .slider-progress span { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange-600), var(--orange-500)); box-shadow: 0 0 16px rgba(232, 99, 12, 0.9); }
+    .slider-dots { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; z-index: 7; }
+    .slider-dots button { width: 10px; height: 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.35); border: none; padding: 0; cursor: pointer; transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease; }
     .slider-dots button:hover { background: rgba(255, 255, 255, 0.75); }
-    .slider-dots button.active {
-      width: 36px;
-      background: var(--orange-600);
-      box-shadow: 0 0 16px rgba(232, 99, 12, 0.7);
-    }
-
-    /* ---- Arrows + counter ---- */
-    .slider-arrows {
-      position: absolute;
-      right: 24px;
-      bottom: 36px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      z-index: 7;
-    }
-    .slider-counter {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: rgba(255, 255, 255, 0.6);
-      margin-right: 8px;
-      text-transform: uppercase;
-    }
+    .slider-dots button.active { width: 36px; background: var(--orange-600); box-shadow: 0 0 16px rgba(232, 99, 12, 0.7); }
+    .slider-arrows { position: absolute; right: 24px; bottom: 36px; display: flex; align-items: center; gap: 8px; z-index: 7; }
+    .slider-counter { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.6); margin-right: 8px; text-transform: uppercase; }
     .slider-counter b { color: var(--white); font-weight: 600; }
     .slider-counter i { font-style: normal; margin: 0 4px; color: rgba(255, 255, 255, 0.35); }
-    .slider-arrows button {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(8px);
-      color: var(--white);
-      font-size: 20px;
-      line-height: 1;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-    }
-    .slider-arrows button:hover {
-      background: var(--orange-600);
-      border-color: var(--orange-600);
-      transform: scale(1.1);
-      box-shadow: 0 8px 24px rgba(232, 99, 12, 0.5);
-    }
+    .slider-arrows button { width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); color: var(--white); font-size: 20px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
+    .slider-arrows button:hover { background: var(--orange-600); border-color: var(--orange-600); transform: scale(1.1); box-shadow: 0 8px 24px rgba(232, 99, 12, 0.5); }
 
     @media (prefers-reduced-motion: reduce) {
       .slide.is-active .slide-bg { animation: none; }
@@ -333,6 +212,104 @@
     .about-points li:hover { transform: translateX(6px); color: var(--navy-950); }
     .about-points li::before { content: ""; flex: none; width: 9px; height: 9px; background: var(--orange-600); margin-top: 6px; border-radius: 50%; transition: transform 0.3s ease; }
     .about-points li:hover::before { transform: scale(1.4); }
+
+    /* ============================================ */
+    /* ---- ACTUALITÉS ---- */
+    /* ============================================ */
+    .news { background: var(--paper); }
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .news-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.5s ease, border-color 0.4s ease;
+    }
+    .news-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--orange-600);
+      box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22);
+    }
+
+    .news-media {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    .news-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .news-card:hover .news-media img { transform: scale(1.08); }
+
+    .news-date {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--navy-950);
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 99, 12, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    .news-date b { color: var(--orange-500); font-weight: 600; }
+
+    .news-body { padding: 24px 26px 26px; flex: 1; display: flex; flex-direction: column; }
+    .news-body h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+      color: var(--navy-950);
+      transition: color 0.3s ease;
+    }
+    .news-card:hover .news-body h3 { color: var(--orange-600); }
+    .news-body p {
+      font-size: 14.5px;
+      color: var(--ink-muted);
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .news-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--orange-600);
+      font-weight: 600;
+      align-self: flex-start;
+      transition: gap 0.3s ease, color 0.3s ease;
+    }
+    .news-link:hover { gap: 16px; color: var(--navy-950); }
+    .news-link::after { content: "→"; font-size: 16px; }
+
+    .news-cta { margin-top: 48px; text-align: center; }
+
+    .news-skeleton {
+      min-height: 380px;
+      background: linear-gradient(90deg, #ece9e2 25%, #f6f4ef 50%, #ece9e2 75%);
+      background-size: 200% 100%;
+      animation: skeleton 1.4s ease-in-out infinite;
+      border: 1px solid var(--line);
+    }
 
     /* ---- BANDEAU D'IMAGES DÉFILANT ---- */
     .image-marquee { background: var(--navy-950); padding: 40px 0; overflow: hidden; position: relative; border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
@@ -379,155 +356,29 @@
     .sector-card:hover h3 { color: var(--orange-500); }
     .sector-card p { font-size: 13.5px; color: #AEB9CC; text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; }
 
-    /* ============================================ */
     /* ---- NOS PRODUITS ---- */
-    /* ============================================ */
     .products { background: var(--white); }
     .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-
-    .product-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.5s ease, border-color 0.4s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--orange-600);
-      box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22);
-    }
-
-    .product-media {
-      position: relative;
-      height: 340px;
-      overflow: hidden;
-      background: var(--paper);
-    }
-    .product-media img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+    .product-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease, border-color 0.4s ease; }
+    .product-card:hover { transform: translateY(-8px); border-color: var(--orange-600); box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22); }
+    .product-media { position: relative; height: 340px; overflow: hidden; background: var(--paper); }
+    .product-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .product-card:hover .product-media img { transform: scale(1.1); }
-
-    .product-media::after {
-      content: "";
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 55%, rgba(8, 18, 38, 0.45) 100%);
-      pointer-events: none;
-    }
-
-    .product-tag {
-      position: absolute; top: 14px; left: 14px; z-index: 2;
-      background: var(--orange-600);
-      color: var(--white);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 5px 11px;
-      border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(232, 99, 12, 0.35);
-    }
-
+    .product-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(8, 18, 38, 0.45) 100%); pointer-events: none; }
+    .product-tag { position: absolute; top: 14px; left: 14px; z-index: 2; background: var(--orange-600); color: var(--white); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; box-shadow: 0 4px 12px rgba(232, 99, 12, 0.35); }
     .product-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
-    .product-body h3 {
-      font-size: 16.5px;
-      margin-bottom: 8px;
-      color: var(--navy-950);
-      transition: color 0.3s ease;
-    }
+    .product-body h3 { font-size: 16.5px; margin-bottom: 8px; color: var(--navy-950); transition: color 0.3s ease; }
     .product-card:hover .product-body h3 { color: var(--orange-600); }
-    .product-body p {
-      font-size: 14.8px;
-      color: var(--ink-muted);
-      text-transform: none;
-      letter-spacing: 0;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.7;
-      flex: 1;
-    }
-
-    /* ============================================ */
-    /* ---- BOUTON "COMMANDER" MIS EN VALEUR ---- */
-    /* ============================================ */
-    .product-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 22px;
-      padding: 15px 20px;
-      background: linear-gradient(135deg, var(--orange-600) 0%, var(--orange-500) 100%);
-      color: var(--white);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 700;
-      border-radius: var(--radius);
-      box-shadow: 0 8px 20px -4px rgba(232, 99, 12, 0.5);
-      position: relative;
-      overflow: hidden;
-      align-self: stretch;
-      text-align: center;
-      transition: background 0.3s ease,
-                  transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.3s ease,
-                  letter-spacing 0.3s ease;
-    }
-    .product-link::before {
-      content: "";
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: left 0.6s ease;
-      pointer-events: none;
-    }
-    .product-link:hover {
-      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%);
-      transform: translateY(-3px);
-      letter-spacing: 0.14em;
-      box-shadow: 0 16px 32px -6px rgba(232, 99, 12, 0.6);
-    }
+    .product-body p { font-size: 14.8px; color: var(--ink-muted); text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; line-height: 1.7; flex: 1; }
+    .product-link { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; padding: 15px 20px; background: linear-gradient(135deg, var(--orange-600) 0%, var(--orange-500) 100%); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; border-radius: var(--radius); box-shadow: 0 8px 20px -4px rgba(232, 99, 12, 0.5); position: relative; overflow: hidden; align-self: stretch; text-align: center; transition: background 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, letter-spacing 0.3s ease; }
+    .product-link::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.6s ease; pointer-events: none; }
+    .product-link:hover { background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); transform: translateY(-3px); letter-spacing: 0.14em; box-shadow: 0 16px 32px -6px rgba(232, 99, 12, 0.6); }
     .product-link:hover::before { left: 100%; }
     .product-link:active { transform: translateY(-1px); }
-
-    /* Bandeau d'appel en bas de la section produits */
-    .products-cta {
-      margin-top: 48px;
-      background: var(--navy-950);
-      border-left: 4px solid var(--orange-600);
-      border-radius: var(--radius);
-      padding: 28px 34px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 18px;
-      box-shadow: var(--shadow-sm);
-    }
+    .products-cta { margin-top: 48px; background: var(--navy-950); border-left: 4px solid var(--orange-600); border-radius: var(--radius); padding: 28px 34px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; box-shadow: var(--shadow-sm); }
     .products-cta .cta-text { color: var(--white); }
-    .products-cta .cta-text .mono {
-      font-size: 11.5px;
-      color: var(--orange-500);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .products-cta .cta-text strong {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.01em;
-    }
+    .products-cta .cta-text .mono { font-size: 11.5px; color: var(--orange-500); letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .products-cta .cta-text strong { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: 0.01em; }
 
     /* ---- Testimonials ---- */
     .testimonials { background: var(--paper); position: relative; }
@@ -574,11 +425,7 @@
     .field textarea { resize: vertical; min-height: 100px; }
     .contact-form .btn { width: 100%; justify-content: center; }
     .form-note { font-size: 12.5px; color: var(--ink-muted); margin-top: 8px; }
-
-    /* ---- Highlight du formulaire quand on clique sur un devis ---- */
-    .contact-form.form-highlight {
-      animation: formHighlight 1.6s ease;
-    }
+    .contact-form.form-highlight { animation: formHighlight 1.6s ease; }
 
     /* ---- Footer ---- */
     footer { background: var(--navy-950); color: #AEB9CC; padding: 64px 0 0; }
@@ -606,27 +453,12 @@
     /* ============================================ */
     /* ---- RENFORCEMENT GLOBAL DES PETITS TEXTES ---- */
     /* ============================================ */
-    .utility-bar,
-    .ticker .wrap,
-    .section-label,
-    .eyebrow,
-    .badge-card .mono,
-    .products-cta .cta-text .mono,
-    .info-item .label,
-    .field label,
-    .foot-bottom,
-    .slider-counter {
-      font-weight: 500;
-    }
-
+    .utility-bar, .ticker .wrap, .section-label, .eyebrow, .badge-card .mono,
+    .products-cta .cta-text .mono, .info-item .label, .field label,
+    .foot-bottom, .slider-counter { font-weight: 500; }
     .product-tag { font-weight: 600; }
-
-    .about-copy p,
-    .section-head p,
-    .service-card .card-body p,
-    .product-body p,
-    .sector-card p,
-    .testimonial-card .quote { font-weight: 500; }
+    .about-copy p, .section-head p, .service-card .card-body p, .product-body p,
+    .sector-card p, .testimonial-card .quote, .news-body p { font-weight: 500; }
 
     /* ============================================ */
     /* ---- RESPONSIVE ---- */
@@ -636,6 +468,7 @@
       .marquee-item { width: 260px; height: 170px; }
       .products-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
       .product-media { height: 300px; }
+      .news-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     }
 
     @media (max-width: 920px) {
@@ -653,7 +486,6 @@
       .header-actions { gap: 8px; }
       .btn-facebook { width: 48px; height: 48px; }
       .btn-facebook svg { width: 22px; height: 22px; }
-
       .slider-counter { display: none; }
       .slide-content { padding: 110px 24px 140px; }
       .hero-slider { min-height: 640px; }
@@ -662,7 +494,6 @@
     @media (max-width: 640px) {
       .utility-bar { display: none; }
       .ticker { display: none; }
-
       .services-grid { grid-template-columns: 1fr; gap: 24px; }
       .service-card .card-img { height: 220px; }
       .sector-grid { grid-template-columns: 1fr; }
@@ -672,9 +503,7 @@
       .marquee-item { width: 220px; height: 145px; }
       .image-marquee { padding: 28px 0; }
       .marquee-track { gap: 16px; animation-duration: 18s; }
-
       header .wrap.nav { padding: 10px 12px; gap: 8px; }
-
       .brand { gap: 10px; flex: 1; min-width: 0; }
       .brand .logo { width: 48px; height: 48px; flex: none; }
       .brand .name { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -682,43 +511,37 @@
       .btn-facebook { width: 44px; height: 44px; flex: none; }
       .btn-facebook svg { width: 20px; height: 20px; }
       .menu-toggle { font-size: 24px; flex: none; }
-
       nav.links { background: white; box-shadow: 0 10px 30px rgba(8, 18, 38, 0.1); }
       nav.links a { font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--line); width: 100%; }
       nav.links a:last-child { border-bottom: none; }
-
       .hero-slider { min-height: 620px; }
       .slide-content { padding: 100px 20px 130px; }
       .slide h1 { font-size: clamp(26px, 7.8vw, 34px); }
       .slide p { font-size: 14.5px; margin: 18px 0 26px; }
       .slide .eyebrow { font-size: 11px; margin-bottom: 14px; }
-
       .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; }
       .hero-ctas .btn { justify-content: center; padding: 14px 20px; font-size: 13px; width: 100%; }
-
       .slider-dots { bottom: 30px; gap: 8px; }
       .slider-dots button { width: 9px; height: 9px; }
       .slider-dots button.active { width: 28px; }
-
       .slider-arrows { right: 16px; bottom: 24px; gap: 6px; }
       .slider-arrows button { width: 40px; height: 40px; font-size: 18px; }
-
       .section-head h2 { font-size: 22px; }
       .section-head p { font-size: 14px; }
-
       .service-card .card-body { padding: 24px 22px 26px; }
       .service-card .card-body h3 { font-size: 17px; }
       .service-card .card-body p { font-size: 14px; }
-
       .products-grid { grid-template-columns: 1fr; gap: 20px; }
       .product-media { height: 260px; }
       .product-body h3 { font-size: 15.5px; }
       .products-cta { padding: 22px 22px; flex-direction: column; align-items: flex-start; text-align: left; }
       .products-cta .cta-text strong { font-size: 16px; }
-
+      .news-grid { grid-template-columns: 1fr; gap: 20px; }
+      .news-media { height: 200px; }
+      .news-body { padding: 22px 22px 24px; }
+      .news-body h3 { font-size: 16px; }
       .wa-float { width: 50px; height: 50px; right: 16px; bottom: 16px; }
       .wa-float svg { width: 24px; height: 24px; }
-
       .utility-bar { font-size: 11px; }
       .utility-bar .wrap { padding: 8px 14px; justify-content: center; text-align: center; }
     }
@@ -730,7 +553,6 @@
       .btn-facebook { width: 40px; height: 40px; }
       .btn-facebook svg { width: 18px; height: 18px; }
       .menu-toggle { font-size: 22px; }
-
       .slider-arrows { display: none; }
       .slider-dots { bottom: 26px; }
     }
@@ -739,39 +561,19 @@
     /* ===== CORRECTIFS MOBILE & RESPONSIVE ===== */
     /* ============================================ */
     html, body { overflow-x: hidden; }
-
     .brand .name small { font-weight: 600; color: var(--navy-800); }
 
     @media (max-width: 640px) {
-      /* Sous-titre visible et sur 2 lignes si besoin */
       .brand .name { white-space: normal; overflow: visible; line-height: 1.15; }
-      .brand .name small {
-        display: block;
-        white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
-        font-size: 9.5px;
-        line-height: 1.3;
-        letter-spacing: 0;
-        margin-top: 3px;
-      }
-
-      /* Hero : plus de hauteur pour que le texte ne soit plus coupé */
+      .brand .name small { display: block; white-space: normal; overflow: visible; text-overflow: clip; font-size: 9.5px; line-height: 1.3; letter-spacing: 0; margin-top: 3px; }
       .hero-slider { min-height: 720px; }
       .slide-content { padding: 90px 20px 120px; }
       .slide h1 { overflow-wrap: anywhere; }
-
-      /* Animations latérales qui faisaient déborder la page */
       .reveal-left, .reveal-right { transform: translateY(30px); }
-
-      /* Section À propos : le badge ne sort plus de l'écran */
       .about { gap: 48px; }
       .badge-card { left: 14px; right: 14px; bottom: -28px; max-width: none; }
       .about-copy { margin-top: 20px; }
-
-      /* Évite le zoom automatique d'iPhone dans le formulaire */
       .field input, .field select, .field textarea { font-size: 16px; }
-
       .foot-bottom { flex-direction: column; align-items: center; text-align: center; }
       .wa-float { bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
     }
@@ -808,6 +610,7 @@
       <nav class="links">
         <a href="#accueil">Accueil</a>
         <a href="#apropos">À propos</a>
+        <a href="#actualites">Actualités</a>
         <a href="#services">Services</a>
         <a href="#secteurs">Secteurs</a>
         <a href="#produits">Produits</a>
@@ -826,12 +629,10 @@
   </header>
 
   <!-- ============================================ -->
-  <!-- HERO SLIDER (3 DIAPOSITIVES) -->
+  <!-- HERO SLIDER -->
   <!-- ============================================ -->
   <section class="hero-slider" id="accueil">
     <div class="slides">
-
-      <!-- Slide 1 -->
       <article class="slide is-active">
         <div class="slide-bg" style="background-image:url('ipss/acceui.jpg')"></div>
         <div class="slide-scrim"></div>
@@ -845,8 +646,6 @@
           </div>
         </div>
       </article>
-
-      <!-- Slide 2 -->
       <article class="slide">
         <div class="slide-bg" style="background-image:url('ipss/gardienage.png')"></div>
         <div class="slide-scrim"></div>
@@ -860,8 +659,6 @@
           </div>
         </div>
       </article>
-
-      <!-- Slide 3 -->
       <article class="slide">
         <div class="slide-bg" style="background-image:url('ipss/escorte.png')"></div>
         <div class="slide-scrim"></div>
@@ -875,20 +672,13 @@
           </div>
         </div>
       </article>
-
     </div>
-
-    <!-- Barre de progression -->
     <div class="slider-progress"><span></span></div>
-
-    <!-- Points de navigation -->
     <div class="slider-dots" role="tablist" aria-label="Navigation des diapositives">
       <button class="active" aria-label="Diapositive 1" aria-selected="true"></button>
       <button aria-label="Diapositive 2" aria-selected="false"></button>
       <button aria-label="Diapositive 3" aria-selected="false"></button>
     </div>
-
-    <!-- Flèches + compteur -->
     <div class="slider-arrows">
       <span class="slider-counter"><b>01</b><i>/</i>03</span>
       <button class="prev" aria-label="Diapositive précédente">‹</button>
@@ -906,7 +696,7 @@
     </div>
   </div>
 
-  <!-- About (À propos) -->
+  <!-- About -->
   <section id="apropos" style="background:var(--white);">
     <div class="wrap about">
       <div class="about-media reveal-left">
@@ -926,6 +716,29 @@
           <li>Matériel certifié : caméras, alarmes, barbelés, systèmes de contrôle d'accès</li>
           <li>Rapports d'activité détaillés et suivi personnalisé</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- ACTUALITÉS (dynamique via Supabase) -->
+  <!-- ============================================ -->
+  <section id="actualites" class="news">
+    <div class="wrap">
+      <div class="section-label reveal">Actualités</div>
+      <div class="section-head reveal">
+        <h2>Nos dernières actualités</h2>
+        <p>Suivez la vie d'IPSS Security : nouvelles prestations, interventions, partenariats et temps forts sur le terrain.</p>
+      </div>
+
+      <div id="newsGrid" class="news-grid">
+        <div class="news-card news-skeleton" aria-hidden="true"></div>
+        <div class="news-card news-skeleton" aria-hidden="true"></div>
+        <div class="news-card news-skeleton" aria-hidden="true"></div>
+      </div>
+
+      <div class="news-cta reveal" id="newsCta" style="display:none;">
+        <a href="actualites.html" class="btn">Voir toutes les actualités</a>
       </div>
     </div>
   </section>
@@ -956,13 +769,10 @@
         <h2>Des solutions complètes de sécurité</h2>
         <p>Découvrez tous nos services : IPSS offre des solutions complètes de sécurité pour répondre à tous vos besoins, que ce soit pour la surveillance, la protection rapprochée ou la logistique.</p>
       </div>
-
       <div class="services-grid">
         <div class="service-card reveal-scale">
           <a href="service-gardiennage.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/gardienage.png" alt="Surveillance & Gardiennage" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/gardienage.png" alt="Surveillance & Gardiennage" /></div>
             <div class="card-body">
               <h3>Surveillance &amp; Gardiennage</h3>
               <p>Agents de sécurité qualifiés pour la protection de vos sites, résidences et locaux commerciaux. Contrôle d'accès et présence dissuasive 24h/24.</p>
@@ -970,12 +780,9 @@
             </div>
           </a>
         </div>
-
         <div class="service-card reveal-scale">
           <a href="service-incendie.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/incendie.jpg" alt="Sécurité Incendie" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/incendie.jpg" alt="Sécurité Incendie" /></div>
             <div class="card-body">
               <h3>Sécurité Incendie</h3>
               <p>Prévention des risques incendie, installation d'équipements de détection et de protection, formation de vos équipes aux gestes de premiers secours.</p>
@@ -983,12 +790,9 @@
             </div>
           </a>
         </div>
-
         <div class="service-card reveal-scale">
           <a href="service-escorte.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/escorte.png" alt="Logistique & Transport" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/escorte.png" alt="Logistique & Transport" /></div>
             <div class="card-body">
               <h3>Logistique &amp; Transport</h3>
               <p>Sécurisation de vos sites d'expédition et du transport de marchandises. Escorte de valeurs et de personnes sur tout le territoire burkinabè.</p>
@@ -996,12 +800,9 @@
             </div>
           </a>
         </div>
-
         <div class="service-card reveal-scale">
           <a href="service-ronde.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/ronde.png" alt="Rondes de Sécurité" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/ronde.png" alt="Rondes de Sécurité" /></div>
             <div class="card-body">
               <h3>Rondes de Sécurité</h3>
               <p>Service de rondes et d'intervention mobile pour les PME, sites industriels, commerces et entrepôts. Une protection sérieuse sans contraintes internes.</p>
@@ -1009,12 +810,9 @@
             </div>
           </a>
         </div>
-
         <div class="service-card reveal-scale">
           <a href="service-evenementiel.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/evenementiel.jpg" alt="Sécurité Événementielle" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/evenementiel.jpg" alt="Sécurité Événementielle" /></div>
             <div class="card-body">
               <h3>Sécurité Événementielle</h3>
               <p>Protection et surveillance d'événements, gestion des foules, contrôle des accès. Une équipe réactive pour assurer la sécurité de vos manifestations.</p>
@@ -1022,12 +820,9 @@
             </div>
           </a>
         </div>
-
         <div class="service-card reveal-scale">
           <a href="service-conseil.html" style="display:block; color:inherit;">
-            <div class="card-img-wrap">
-              <img class="card-img" src="ipss/conseil.jpg" alt="Audit & Conseil" />
-            </div>
+            <div class="card-img-wrap"><img class="card-img" src="ipss/conseil.jpg" alt="Audit & Conseil" /></div>
             <div class="card-body">
               <h3>Audit &amp; Conseil en Sécurité</h3>
               <p>Évaluation de vos risques, recommandations concrètes et plans de sécurité personnalisés. Bénéficiez d'une expertise locale adaptée à vos besoins spécifiques.</p>
@@ -1039,7 +834,7 @@
     </div>
   </section>
 
-  <!-- Secteurs d'activité -->
+  <!-- Secteurs -->
   <section id="secteurs" class="sectors">
     <div class="wrap">
       <div class="section-label reveal">Secteurs d'activité</div>
@@ -1048,29 +843,15 @@
         <p>Nous adaptons nos prestations aux exigences spécifiques de votre métier.</p>
       </div>
       <div class="sector-grid">
-        <div class="sector-card reveal">
-          <h3>Industrie &amp; Logistique</h3>
-          <p>Surveillance de sites sensibles, contrôle d'accès, sécurisation de marchandises.</p>
-        </div>
-        <div class="sector-card reveal">
-          <h3>Commerce &amp; Événementiel</h3>
-          <p>Gardiennage de boutiques, sécurité événementielle, gestion des foules.</p>
-        </div>
-        <div class="sector-card reveal">
-          <h3>Particuliers &amp; Résidences</h3>
-          <p>Protection de villas, surveillance de quartiers, alarme et télésurveillance.</p>
-        </div>
-        <div class="sector-card reveal">
-          <h3>Institutions &amp; ONG</h3>
-          <p>Protection de personnels, sécurisation de locaux administratifs, escorte.</p>
-        </div>
+        <div class="sector-card reveal"><h3>Industrie &amp; Logistique</h3><p>Surveillance de sites sensibles, contrôle d'accès, sécurisation de marchandises.</p></div>
+        <div class="sector-card reveal"><h3>Commerce &amp; Événementiel</h3><p>Gardiennage de boutiques, sécurité événementielle, gestion des foules.</p></div>
+        <div class="sector-card reveal"><h3>Particuliers &amp; Résidences</h3><p>Protection de villas, surveillance de quartiers, alarme et télésurveillance.</p></div>
+        <div class="sector-card reveal"><h3>Institutions &amp; ONG</h3><p>Protection de personnels, sécurisation de locaux administratifs, escorte.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- NOS PRODUITS -->
-  <!-- ============================================ -->
+  <!-- PRODUITS -->
   <section id="produits" class="products">
     <div class="wrap">
       <div class="section-label reveal">Nos Produits</div>
@@ -1078,129 +859,44 @@
         <h2>Équipements &amp; matériels de sécurité</h2>
         <p>IPSS vous propose une gamme complète de matériels professionnels pour équiper vos agents, sécuriser vos sites et prévenir les risques. Vente et installation sur tout le territoire burkinabè.</p>
       </div>
-
       <div class="products-grid">
-
-        <!-- Aérosol -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Défense</span>
-            <img src="ipss/Aérosol.jpeg" alt="Aérosol de défense" />
-          </div>
-          <div class="product-body">
-            <h3>Aérosol de Défense</h3>
-            <p>Aérosol lacrymogène de défense pour une protection immédiate en cas d'agression. Compact, efficace et facile à utiliser.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Aérosol de Défense">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Défense</span><img src="ipss/Aérosol.jpeg" alt="Aérosol de défense" /></div>
+          <div class="product-body"><h3>Aérosol de Défense</h3><p>Aérosol lacrymogène de défense pour une protection immédiate en cas d'agression. Compact, efficace et facile à utiliser.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Aérosol de Défense">Commander</a></div>
         </div>
-
-        <!-- Alarme incendie -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Incendie</span>
-            <img src="ipss/Alarme_incendie.jpeg" alt="Alarme incendie" />
-          </div>
-          <div class="product-body">
-            <h3>Alarme Incendie</h3>
-            <p>Détecteurs et alarmes incendie pour prévenir les risques et protéger vos locaux, entrepôts et habitations 24h/24.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Alarme Incendie">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Incendie</span><img src="ipss/Alarme_incendie.jpeg" alt="Alarme incendie" /></div>
+          <div class="product-body"><h3>Alarme Incendie</h3><p>Détecteurs et alarmes incendie pour prévenir les risques et protéger vos locaux, entrepôts et habitations 24h/24.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Alarme Incendie">Commander</a></div>
         </div>
-
-        <!-- Détecteur de métaux -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Contrôle d'accès</span>
-            <img src="ipss/Détecteur_de_metaux_ou_Scanner.jpeg" alt="Détecteur de métaux / Scanner" />
-          </div>
-          <div class="product-body">
-            <h3>Détecteur de Métaux / Scanner</h3>
-            <p>Contrôle d'accès et détection d'objets dangereux à l'entrée de vos sites, banques, hôtels et événements.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Détecteur de Métaux / Scanner">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Contrôle d'accès</span><img src="ipss/Détecteur_de_metaux_ou_Scanner.jpeg" alt="Détecteur de métaux / Scanner" /></div>
+          <div class="product-body"><h3>Détecteur de Métaux / Scanner</h3><p>Contrôle d'accès et détection d'objets dangereux à l'entrée de vos sites, banques, hôtels et événements.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Détecteur de Métaux / Scanner">Commander</a></div>
         </div>
-
-        <!-- Miroirs de sécurité -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Surveillance</span>
-            <img src="ipss/Miroirs_de_sécurité.jpeg" alt="Miroirs de sécurité" />
-          </div>
-          <div class="product-body">
-            <h3>Miroirs de Sécurité</h3>
-            <p>Miroirs convexes pour une visibilité totale dans les angles morts, parkings, couloirs et zones de circulation.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Miroirs de Sécurité">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Surveillance</span><img src="ipss/Miroirs_de_sécurité.jpeg" alt="Miroirs de sécurité" /></div>
+          <div class="product-body"><h3>Miroirs de Sécurité</h3><p>Miroirs convexes pour une visibilité totale dans les angles morts, parkings, couloirs et zones de circulation.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Miroirs de Sécurité">Commander</a></div>
         </div>
-
-        <!-- Serrure intelligente -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Accès connecté</span>
-            <img src="ipss/Serrure_intelligente.jpeg" alt="Serrure intelligente" />
-          </div>
-          <div class="product-body">
-            <h3>Serrure Intelligente</h3>
-            <p>Serrures connectées et systèmes d'accès sécurisés (code, badge, empreinte) pour vos portes et locaux sensibles.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Serrure Intelligente">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Accès connecté</span><img src="ipss/Serrure_intelligente.jpeg" alt="Serrure intelligente" /></div>
+          <div class="product-body"><h3>Serrure Intelligente</h3><p>Serrures connectées et systèmes d'accès sécurisés (code, badge, empreinte) pour vos portes et locaux sensibles.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Serrure Intelligente">Commander</a></div>
         </div>
-
-        <!-- Sifflet -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Signalisation</span>
-            <img src="ipss/Siflet.jpeg" alt="Sifflet de sécurité" />
-          </div>
-          <div class="product-body">
-            <h3>Sifflet de Sécurité</h3>
-            <p>Sifflets d'alarme puissants pour agents de sécurité, signalisation d'urgence et intervention rapide.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Sifflet de Sécurité">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Signalisation</span><img src="ipss/Siflet.jpeg" alt="Sifflet de sécurité" /></div>
+          <div class="product-body"><h3>Sifflet de Sécurité</h3><p>Sifflets d'alarme puissants pour agents de sécurité, signalisation d'urgence et intervention rapide.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Sifflet de Sécurité">Commander</a></div>
         </div>
-
-        <!-- Talkie-Walkie -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Communication</span>
-            <img src="ipss/Talkie_Walkie.jpeg" alt="Talkie-Walkie" />
-          </div>
-          <div class="product-body">
-            <h3>Talkie-Walkie</h3>
-            <p>Radios portatives longue portée pour une communication fluide et instantanée entre vos agents sur le terrain.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Talkie-Walkie">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Communication</span><img src="ipss/Talkie_Walkie.jpeg" alt="Talkie-Walkie" /></div>
+          <div class="product-body"><h3>Talkie-Walkie</h3><p>Radios portatives longue portée pour une communication fluide et instantanée entre vos agents sur le terrain.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Talkie-Walkie">Commander</a></div>
         </div>
-
-        <!-- Teaser -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Défense</span>
-            <img src="ipss/Teaser.jpeg" alt="Teaser — pistolet à impulsions" />
-          </div>
-          <div class="product-body">
-            <h3>Teaser (Pistolet à Impulsions)</h3>
-            <p>Appareil de défense électrique pour neutraliser une menace à distance tout en préservant votre intégrité physique.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Teaser (Pistolet à Impulsions)">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Défense</span><img src="ipss/Teaser.jpeg" alt="Teaser — pistolet à impulsions" /></div>
+          <div class="product-body"><h3>Teaser (Pistolet à Impulsions)</h3><p>Appareil de défense électrique pour neutraliser une menace à distance tout en préservant votre intégrité physique.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Teaser (Pistolet à Impulsions)">Commander</a></div>
         </div>
-
-        <!-- Torche de sécurité -->
         <div class="product-card reveal-scale">
-          <div class="product-media">
-            <span class="product-tag">Intervention</span>
-            <img src="ipss/Torch_de_sécurité.jpeg" alt="Torche de sécurité" />
-          </div>
-          <div class="product-body">
-            <h3>Torche de Sécurité</h3>
-            <p>Torches tactiques puissantes et lampes de sécurité pour les rondes, patrouilles et interventions nocturnes.</p>
-            <a href="https://wa.me/22656513009" class="product-link" data-wa-product="Torche de Sécurité">Commander</a>
-          </div>
+          <div class="product-media"><span class="product-tag">Intervention</span><img src="ipss/Torch_de_sécurité.jpeg" alt="Torche de sécurité" /></div>
+          <div class="product-body"><h3>Torche de Sécurité</h3><p>Torches tactiques puissantes et lampes de sécurité pour les rondes, patrouilles et interventions nocturnes.</p><a href="https://wa.me/22656513009" class="product-link" data-wa-product="Torche de Sécurité">Commander</a></div>
         </div>
-
       </div>
-
-      <!-- CTA bas de section -->
       <div class="products-cta reveal">
         <div class="cta-text">
           <span class="mono">Vente &bull; Installation &bull; Formation</span>
@@ -1208,7 +904,6 @@
         </div>
         <a href="https://wa.me/22656513009" class="btn" data-wa-devis="produits">Commander via WhatsApp</a>
       </div>
-
     </div>
   </section>
 
@@ -1247,27 +942,9 @@
         <div class="contact-info">
           <h3>Contactez IPSS Security</h3>
           <p>Prenez contact avec nos experts en sécurité pour une évaluation gratuite de vos besoins.</p>
-          <div class="info-item">
-            <div class="ico">📍</div>
-            <div>
-              <div class="label">Localisation</div>
-              <div class="value">Larlé, non loin de la Maison des Jeunes<br />Boulevard Che Guevara — Ouagadougou, Burkina Faso</div>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="ico">☎</div>
-            <div>
-              <div class="label">Téléphone</div>
-              <div class="value"><a href="tel:+22656513009">+226 56 51 30 09</a></div>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="ico">📜</div>
-            <div>
-              <div class="label">Arrêté</div>
-              <div class="value" style="font-size:13px;">N°2021-00399/MSECU/CAB/DR du 20/05/2021</div>
-            </div>
-          </div>
+          <div class="info-item"><div class="ico">📍</div><div><div class="label">Localisation</div><div class="value">Larlé, non loin de la Maison des Jeunes<br />Boulevard Che Guevara — Ouagadougou, Burkina Faso</div></div></div>
+          <div class="info-item"><div class="ico">☎</div><div><div class="label">Téléphone</div><div class="value"><a href="tel:+22656513009">+226 56 51 30 09</a></div></div></div>
+          <div class="info-item"><div class="ico">📜</div><div><div class="label">Arrêté</div><div class="value" style="font-size:13px;">N°2021-00399/MSECU/CAB/DR du 20/05/2021</div></div></div>
           <div class="social-row">
             <a href="https://web.facebook.com/ipsssecurite" target="_blank" rel="noopener" aria-label="Facebook">f</a>
             <a href="https://wa.me/22656513009?text=Bonjour%20IPSS%20Security%20%F0%9F%91%8B%2C%20je%20vous%20contacte%20depuis%20votre%20site." target="_blank" rel="noopener" aria-label="WhatsApp">w</a>
@@ -1278,14 +955,8 @@
           <p>Remplissez le formulaire ci-dessous et notre équipe vous recontactera via WhatsApp.</p>
           <form id="contactForm" action="#" method="post" novalidate>
             <div class="form-row">
-              <div class="field">
-                <label for="name">Nom complet</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" required />
-              </div>
-              <div class="field">
-                <label for="phone">Téléphone</label>
-                <input type="tel" id="phone" name="phone" placeholder="+226 -- -- -- --" required />
-              </div>
+              <div class="field"><label for="name">Nom complet</label><input type="text" id="name" name="name" placeholder="Votre nom" required /></div>
+              <div class="field"><label for="phone">Téléphone</label><input type="tel" id="phone" name="phone" placeholder="+226 -- -- -- --" required /></div>
             </div>
             <div class="field">
               <label for="service">Service souhaité</label>
@@ -1299,10 +970,7 @@
                 <option>Achat de matériel / Produits</option>
               </select>
             </div>
-            <div class="field">
-              <label for="message">Message / Précisions</label>
-              <textarea id="message" name="message" placeholder="Décrivez votre besoin..."></textarea>
-            </div>
+            <div class="field"><label for="message">Message / Précisions</label><textarea id="message" name="message" placeholder="Décrivez votre besoin..."></textarea></div>
             <button type="submit" class="btn">Envoyer via WhatsApp</button>
             <div class="form-note">Réponse sous 24h ouvrées — Devis 100% gratuit via WhatsApp</div>
           </form>
@@ -1317,9 +985,7 @@
       <div class="foot-grid">
         <div class="foot-brand">
           <div class="brand">
-            <div class="logo">
-              <img src="ipss/logo.jpg" alt="IPSS Security" />
-            </div>
+            <div class="logo"><img src="ipss/logo.jpg" alt="IPSS Security" /></div>
             <div class="name">IPSS SECURITY</div>
           </div>
           <p>International Protective Services and Security — Votre partenaire de confiance pour la sécurité des biens et des personnes au Burkina Faso.</p>
@@ -1339,6 +1005,7 @@
           <h4>À propos</h4>
           <ul>
             <li><a href="#apropos">Notre équipe</a></li>
+            <li><a href="#actualites">Actualités</a></li>
             <li><a href="#secteurs">Secteurs d'activité</a></li>
             <li><a href="#produits">Nos produits</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -1369,112 +1036,140 @@
     </svg>
   </a>
 
+  <!-- ============================================ -->
+  <!-- SCRIPTS -->
+  <!-- ============================================ -->
+
+  <!-- Supabase CDN -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+  <!-- Loader Actualités -->
   <script>
-    /* ============================================ */
-    /* ---- HERO SLIDER (3 DIAPOSITIVES) ---- */
-    /* ============================================ */
+  (function initNews() {
+    const SUPABASE_URL = 'https://otdiywrvzappbmjfkkyi.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90ZGl5d3J2emFwcGJtamZra3lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2MTQyMDcsImV4cCI6MjA4NTE5MDIwN30.O5gHqJF1SCvpu19Z0OFHhQsT_ZmeIFbuEu-bpBZXXtY';
+    const LIMIT = 3;
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const grid = document.getElementById('newsGrid');
+    const cta  = document.getElementById('newsCta');
+    if (!grid) return;
+
+    const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+
+    function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function fmt(iso){ const d=new Date(iso); return { d:String(d.getDate()).padStart(2,'0'), m:MONTHS[d.getMonth()], y:d.getFullYear() }; }
+
+    async function load(){
+      const { data, error } = await db
+        .from('ipss_news')
+        .select('id,title,slug,excerpt,image_url,published_at')
+        .eq('published', true)
+        .order('published_at', { ascending: false })
+        .limit(LIMIT);
+
+      if (error || !data || data.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink-muted);font-family:IBM Plex Mono,monospace;font-size:13px;">Aucune actualité pour le moment.</p>';
+        return;
+      }
+
+      grid.innerHTML = data.map(n => {
+        const t = fmt(n.published_at);
+        const img = n.image_url || 'ipss/logo.jpg';
+        const link = n.slug ? `actualite-${encodeURIComponent(n.slug)}.html` : `actualites.html`;
+        return `
+          <article class="news-card reveal-scale">
+            <div class="news-media">
+              <span class="news-date"><b>${t.d}</b> ${t.m} ${t.y}</span>
+              <img src="${esc(img)}" alt="${esc(n.title)}" loading="lazy" />
+            </div>
+            <div class="news-body">
+              <h3>${esc(n.title)}</h3>
+              <p>${esc(n.excerpt || '')}</p>
+              <a href="${link}" class="news-link">Lire la suite</a>
+            </div>
+          </article>`;
+      }).join('');
+
+      grid.querySelectorAll('.news-card').forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), 60 + i * 100);
+      });
+
+      if (data.length >= LIMIT) cta.style.display = 'block';
+    }
+
+    load();
+  })();
+  </script>
+
+  <!-- Script principal (slider, WA, reveal, menu) -->
+  <script>
+    /* HERO SLIDER */
     (function initHeroSlider() {
       const slider = document.querySelector('.hero-slider');
       if (!slider) return;
-
       const slides = Array.from(slider.querySelectorAll('.slide'));
       if (slides.length < 2) return;
-
       const dots = Array.from(slider.querySelectorAll('.slider-dots button'));
       const progressBar = slider.querySelector('.slider-progress span');
       const counterNum = slider.querySelector('.slider-counter b');
       const prevBtn = slider.querySelector('.slider-arrows .prev');
       const nextBtn = slider.querySelector('.slider-arrows .next');
-
       const DURATION = 3000;
       const TOTAL = slides.length;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      let current = 0;
-      let elapsed = 0;
-      let lastTime = performance.now();
-      let paused = reduced;
-
+      let current = 0, elapsed = 0, lastTime = performance.now(), paused = reduced;
       function goTo(index) {
         current = (index + TOTAL) % TOTAL;
         slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
-        dots.forEach((d, i) => {
-          const active = i === current;
-          d.classList.toggle('active', active);
-          d.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
+        dots.forEach((d, i) => { const a = i === current; d.classList.toggle('active', a); d.setAttribute('aria-selected', a ? 'true' : 'false'); });
         if (counterNum) counterNum.textContent = String(current + 1).padStart(2, '0');
         elapsed = 0;
         if (progressBar) progressBar.style.width = '0%';
       }
-
       function tick(now) {
-        const delta = now - lastTime;
-        lastTime = now;
+        const delta = now - lastTime; lastTime = now;
         if (!paused) {
           elapsed += delta;
-          if (elapsed >= DURATION) {
-            goTo(current + 1);
-          } else if (progressBar) {
-            progressBar.style.width = (elapsed / DURATION * 100) + '%';
-          }
+          if (elapsed >= DURATION) goTo(current + 1);
+          else if (progressBar) progressBar.style.width = (elapsed / DURATION * 100) + '%';
         }
         requestAnimationFrame(tick);
       }
-
       dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
       nextBtn?.addEventListener('click', () => goTo(current + 1));
       prevBtn?.addEventListener('click', () => goTo(current - 1));
-
       document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          paused = true;
-        } else if (!reduced) {
-          paused = false;
-          lastTime = performance.now();
-        }
+        if (document.hidden) paused = true;
+        else if (!reduced) { paused = false; lastTime = performance.now(); }
       });
-
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') goTo(current + 1);
         if (e.key === 'ArrowLeft') goTo(current - 1);
       });
-
       goTo(0);
       requestAnimationFrame(tick);
     })();
 
-    /* ============================================ */
-    /* ---- Reveal on scroll ---- */
-    /* ============================================ */
+    /* Reveal on scroll */
     const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 80);
+          setTimeout(() => entry.target.classList.add('visible'), index * 80);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    /* ============================================ */
-    /* ---- Header shadow au scroll ---- */
-    /* ============================================ */
+    /* Header shadow */
     const header = document.getElementById('mainHeader');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    /* ============================================ */
-    /* ---- Mobile menu toggle ---- */
-    /* ============================================ */
+    /* Menu mobile */
     document.querySelector('.menu-toggle')?.addEventListener('click', function() {
       const nav = document.querySelector('nav.links');
       if (nav) {
@@ -1490,8 +1185,6 @@
         nav.style.boxShadow = '0 10px 30px rgba(8, 18, 38, 0.1)';
       }
     });
-
-    /* ✅ Ferme le menu au clic sur un lien + reset au redimensionnement */
     document.querySelectorAll('nav.links a').forEach(a => {
       a.addEventListener('click', () => {
         if (window.innerWidth <= 920) document.querySelector('nav.links').style.display = 'none';
@@ -1501,25 +1194,15 @@
       if (window.innerWidth > 920) document.querySelector('nav.links').removeAttribute('style');
     });
 
-    /* ============================================ */
-    /* ---- WHATSAPP & DEVIS ---- */
-    /* ============================================ */
+    /* WhatsApp & devis */
     (function initWhatsAppLinks() {
-      const PHONE = '22656513009'; // +226 56 51 30 09
+      const PHONE = '22656513009';
       const BASE  = 'https://wa.me/' + PHONE;
       const SITE_SIGNATURE = '\n\n📩 _Message envoyé depuis le site IPSS Security_';
 
       document.querySelectorAll('[data-wa-product]').forEach(el => {
         const produit = el.getAttribute('data-wa-product');
-        const msg =
-          'Bonjour IPSS Security 👋\n\n' +
-          'Je souhaite *commander* le produit suivant :\n' +
-          '📦 ' + produit + '\n\n' +
-          'Merci de me communiquer :\n' +
-          '• Le prix\n' +
-          '• La disponibilité\n' +
-          '• Les modalités de livraison' +
-          SITE_SIGNATURE;
+        const msg = 'Bonjour IPSS Security 👋\n\nJe souhaite *commander* le produit suivant :\n📦 ' + produit + '\n\nMerci de me communiquer :\n• Le prix\n• La disponibilité\n• Les modalités de livraison' + SITE_SIGNATURE;
         el.href = BASE + '?text=' + encodeURIComponent(msg);
         el.target = '_blank';
         el.rel = 'noopener';
@@ -1527,18 +1210,10 @@
 
       document.querySelectorAll('[data-wa-devis]').forEach(el => {
         const source = el.getAttribute('data-wa-devis');
-        let contexte = '';
-        if (source === 'produits') {
-          contexte = '\n\n🛒 Contexte : achat / location de matériel de sécurité.';
-        } else {
-          contexte = '\n\n🛡️ Contexte : demande de devis pour vos services de sécurité.';
-        }
-        const msg =
-          'Bonjour IPSS Security 👋\n\n' +
-          'Je souhaite obtenir un *devis gratuit* pour vos services.' +
-          contexte +
-          '\n\nMerci de me recontacter rapidement.' +
-          SITE_SIGNATURE;
+        const contexte = source === 'produits'
+          ? '\n\n🛒 Contexte : achat / location de matériel de sécurité.'
+          : '\n\n🛡️ Contexte : demande de devis pour vos services de sécurité.';
+        const msg = 'Bonjour IPSS Security 👋\n\nJe souhaite obtenir un *devis gratuit* pour vos services.' + contexte + '\n\nMerci de me recontacter rapidement.' + SITE_SIGNATURE;
         el.href = BASE + '?text=' + encodeURIComponent(msg);
         el.target = '_blank';
         el.rel = 'noopener';
@@ -1547,21 +1222,15 @@
       document.querySelectorAll('[data-devis-scroll]').forEach(el => {
         el.addEventListener('click', function (e) {
           e.preventDefault();
-
           const section = document.getElementById('contact');
           const formBox = document.querySelector('.contact-form');
           const nameInput = document.getElementById('name');
-
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
           if (formBox) {
             formBox.classList.remove('form-highlight');
             void formBox.offsetWidth;
             formBox.classList.add('form-highlight');
           }
-
           setTimeout(() => { nameInput?.focus(); }, 700);
         });
       });
@@ -1570,39 +1239,25 @@
       if (form) {
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-
           const name    = (form.querySelector('#name')?.value || '').trim();
           const phone   = (form.querySelector('#phone')?.value || '').trim();
           const service = (form.querySelector('#service')?.value || '').trim();
           const message = (form.querySelector('#message')?.value || '').trim();
-
-          if (!name || !phone) {
-            alert('Merci de renseigner votre nom et votre téléphone.');
-            return;
-          }
-
+          if (!name || !phone) { alert('Merci de renseigner votre nom et votre téléphone.'); return; }
           const texte =
-            'Bonjour IPSS Security 👋\n\n' +
-            '*📋 Nouvelle demande de devis*\n\n' +
+            'Bonjour IPSS Security 👋\n\n*📋 Nouvelle demande de devis*\n\n' +
             '👤 *Nom* : ' + name + '\n' +
             '📞 *Téléphone* : ' + phone + '\n' +
             '🛡️ *Service* : ' + service + '\n' +
             (message ? '💬 *Message* : ' + message + '\n' : '') +
-            '\nMerci de me recontacter rapidement.' +
-            SITE_SIGNATURE;
-
-          const url = BASE + '?text=' + encodeURIComponent(texte);
-          window.open(url, '_blank', 'noopener');
-
+            '\nMerci de me recontacter rapidement.' + SITE_SIGNATURE;
+          window.open(BASE + '?text=' + encodeURIComponent(texte), '_blank', 'noopener');
           const btn = form.querySelector('button[type="submit"]');
           if (btn) {
             const original = btn.textContent;
             btn.textContent = '✓ Ouverture de WhatsApp...';
             btn.disabled = true;
-            setTimeout(() => {
-              btn.textContent = original;
-              btn.disabled = false;
-            }, 2200);
+            setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2200);
           }
         });
       }
