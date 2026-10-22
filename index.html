@@ -98,7 +98,7 @@
       gap: 20px;
     }
     .brand { display: flex; align-items: center; gap: 16px; }
-    .brand .logo { width: 72px; height: 72px; border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; border: 3px solid var(--orange-600); padding: 3px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; box-shadow: 0 4px 16px rgba(232, 99, 12, 0.2); animation: logoPulse 4s ease-in-out infinite; }
+    .brand .logo { width: 72px; height: 72px; border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; border: 3px solid var(--orange-600); padding: 3px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; box-shadow: 0 4px 16px rgba(232, 99, 12, 0.2); animation: logoPulse 4s ease-in-out infinite; cursor: pointer; }
     .brand .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; transition: transform 0.5s ease; }
     .brand .logo:hover { transform: scale(1.08) rotate(5deg); box-shadow: 0 8px 24px rgba(232, 99, 12, 0.4); }
     .brand .logo:hover img { transform: scale(1.05); }
@@ -119,21 +119,8 @@
     .menu-toggle { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--navy-950); transition: transform 0.3s ease, color 0.3s ease; }
     .menu-toggle:hover { transform: rotate(90deg); color: var(--orange-600); }
 
-    /* ---- Bouton Facebook Header ---- */
     .header-actions { display: flex; align-items: center; gap: 10px; }
-    .btn-facebook {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius);
-      background: #1877F2;
-      color: var(--white);
-      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-      box-shadow: 0 6px 16px rgba(24, 119, 242, 0.28);
-      flex: none;
-    }
+    .btn-facebook { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius); background: #1877F2; color: var(--white); transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; box-shadow: 0 6px 16px rgba(24, 119, 242, 0.28); flex: none; }
     .btn-facebook svg { width: 22px; height: 22px; fill: currentColor; transition: transform 0.3s ease; }
     .btn-facebook:hover { background: #0d5bbd; transform: translateY(-3px) scale(1.08); box-shadow: 0 12px 28px rgba(24, 119, 242, 0.45); }
     .btn-facebook:hover svg { transform: rotate(8deg) scale(1.1); }
@@ -172,7 +159,6 @@
     .slider-counter i { font-style: normal; margin: 0 4px; color: rgba(255, 255, 255, 0.35); }
     .slider-arrows button { width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); color: var(--white); font-size: 20px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
     .slider-arrows button:hover { background: var(--orange-600); border-color: var(--orange-600); transform: scale(1.1); box-shadow: 0 8px 24px rgba(232, 99, 12, 0.5); }
-
     @media (prefers-reduced-motion: reduce) {
       .slide.is-active .slide-bg { animation: none; }
       .slide.is-active .slide-content > * { animation: none !important; opacity: 1; }
@@ -218,98 +204,22 @@
     /* ============================================ */
     .news { background: var(--paper); }
     .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-
-    .news-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.5s ease, border-color 0.4s ease;
-    }
-    .news-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--orange-600);
-      box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22);
-    }
-
-    .news-media {
-      position: relative;
-      height: 220px;
-      overflow: hidden;
-    }
-    .news-media img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+    .news-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease, border-color 0.4s ease; }
+    .news-card:hover { transform: translateY(-8px); border-color: var(--orange-600); box-shadow: 0 24px 50px -16px rgba(8, 18, 38, 0.22); }
+    .news-media { position: relative; height: 220px; overflow: hidden; }
+    .news-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .news-card:hover .news-media img { transform: scale(1.08); }
-
-    .news-date {
-      position: absolute;
-      top: 14px; left: 14px;
-      background: var(--navy-950);
-      color: var(--white);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(232, 99, 12, 0.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      z-index: 2;
-    }
+    .news-date { position: absolute; top: 14px; left: 14px; background: var(--navy-950); color: var(--white); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(232, 99, 12, 0.6); display: inline-flex; align-items: center; gap: 6px; z-index: 2; }
     .news-date b { color: var(--orange-500); font-weight: 600; }
-
     .news-body { padding: 24px 26px 26px; flex: 1; display: flex; flex-direction: column; }
-    .news-body h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-      color: var(--navy-950);
-      transition: color 0.3s ease;
-    }
+    .news-body h3 { font-size: 17px; margin-bottom: 10px; color: var(--navy-950); transition: color 0.3s ease; }
     .news-card:hover .news-body h3 { color: var(--orange-600); }
-    .news-body p {
-      font-size: 14.5px;
-      color: var(--ink-muted);
-      text-transform: none;
-      letter-spacing: 0;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.7;
-      flex: 1;
-    }
-
-    .news-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 18px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--orange-600);
-      font-weight: 600;
-      align-self: flex-start;
-      transition: gap 0.3s ease, color 0.3s ease;
-    }
+    .news-body p { font-size: 14.5px; color: var(--ink-muted); text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; line-height: 1.7; flex: 1; }
+    .news-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--orange-600); font-weight: 600; align-self: flex-start; transition: gap 0.3s ease, color 0.3s ease; }
     .news-link:hover { gap: 16px; color: var(--navy-950); }
     .news-link::after { content: "→"; font-size: 16px; }
-
     .news-cta { margin-top: 48px; text-align: center; }
-
-    .news-skeleton {
-      min-height: 380px;
-      background: linear-gradient(90deg, #ece9e2 25%, #f6f4ef 50%, #ece9e2 75%);
-      background-size: 200% 100%;
-      animation: skeleton 1.4s ease-in-out infinite;
-      border: 1px solid var(--line);
-    }
+    .news-skeleton { min-height: 380px; background: linear-gradient(90deg, #ece9e2 25%, #f6f4ef 50%, #ece9e2 75%); background-size: 200% 100%; animation: skeleton 1.4s ease-in-out infinite; border: 1px solid var(--line); }
 
     /* ---- BANDEAU D'IMAGES DÉFILANT ---- */
     .image-marquee { background: var(--navy-950); padding: 40px 0; overflow: hidden; position: relative; border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
@@ -449,6 +359,22 @@
     .wa-float:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 16px 40px rgba(37, 211, 102, 0.5); }
     .wa-float svg { width: 28px; height: 28px; fill: white; transition: transform 0.3s ease; }
     .wa-float:hover svg { transform: scale(1.1); }
+
+    /* ============================================ */
+    /* ---- MODAL LOGIN ADMIN ---- */
+    /* ============================================ */
+    .admin-login-modal { position: fixed; inset: 0; background: rgba(8, 18, 38, 0.85); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+    .admin-login-modal.open { opacity: 1; visibility: visible; }
+    .admin-login-content { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 400px; position: relative; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); border-top: 6px solid var(--orange-600); overflow: hidden; animation: fadeUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .admin-login-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: none; cursor: pointer; font-size: 22px; font-weight: 700; line-height: 1; color: var(--navy-950); z-index: 2; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+    .admin-login-close:hover { background: var(--orange-600); color: var(--white); transform: rotate(90deg); }
+    .admin-login-header { text-align: center; padding: 28px 28px 8px; }
+    .admin-login-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(232, 99, 12, 0.1); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px; }
+    .admin-login-header h3 { font-size: 17px; margin-bottom: 4px; color: var(--navy-950); }
+    .admin-login-header p { font-size: 12.5px; color: var(--ink-muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
+    .admin-login-body { padding: 16px 28px 28px; display: grid; gap: 14px; }
+    .admin-login-body .btn { width: 100%; justify-content: center; }
+    .admin-login-error { color: #DC2626; font-size: 13px; text-align: center; min-height: 18px; margin: 0; font-weight: 500; }
 
     /* ============================================ */
     /* ---- RENFORCEMENT GLOBAL DES PETITS TEXTES ---- */
@@ -602,7 +528,7 @@
   <header id="mainHeader">
     <div class="wrap nav">
       <div class="brand">
-        <div class="logo">
+        <div class="logo" id="adminLogoTrigger">
           <img src="ipss/logo.jpg" alt="IPSS Security" />
         </div>
         <div class="name">IPSS SECURITY<small>International Protective Services &amp; Security</small></div>
@@ -628,9 +554,7 @@
     </div>
   </header>
 
-  <!-- ============================================ -->
   <!-- HERO SLIDER -->
-  <!-- ============================================ -->
   <section class="hero-slider" id="accueil">
     <div class="slides">
       <article class="slide is-active">
@@ -720,9 +644,7 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- ACTUALITÉS (dynamique via Supabase) -->
-  <!-- ============================================ -->
+  <!-- ACTUALITÉS -->
   <section id="actualites" class="news">
     <div class="wrap">
       <div class="section-label reveal">Actualités</div>
@@ -1037,6 +959,28 @@
   </a>
 
   <!-- ============================================ -->
+  <!-- MODAL LOGIN ADMIN (triple-clic sur le logo) -->
+  <!-- ============================================ -->
+  <div class="admin-login-modal" id="adminLoginModal" role="dialog" aria-modal="true">
+    <div class="admin-login-content">
+      <button class="admin-login-close" id="adminLoginClose" aria-label="Fermer">×</button>
+      <div class="admin-login-header">
+        <div class="admin-login-icon">🔐</div>
+        <h3>Espace Administration</h3>
+        <p>IPSS Security</p>
+      </div>
+      <form id="adminLoginForm" class="admin-login-body">
+        <div class="field">
+          <label for="adminPwd">Mot de passe</label>
+          <input type="password" id="adminPwd" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn">Se connecter</button>
+        <p class="admin-login-error" id="adminLoginError"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
   <!-- SCRIPTS -->
   <!-- ============================================ -->
 
@@ -1102,7 +1046,7 @@
   })();
   </script>
 
-  <!-- Script principal (slider, WA, reveal, menu) -->
+  <!-- Script principal -->
   <script>
     /* HERO SLIDER */
     (function initHeroSlider() {
@@ -1261,6 +1205,67 @@
           }
         });
       }
+    })();
+
+    /* ============================================ */
+    /* ---- ACCÈS ADMIN : TRIPLE-CLIC SUR LE LOGO ---- */
+    /* ============================================ */
+    (function initAdminAccess() {
+      const ADMIN_PASSWORD = 'Ipss@Security@2026';
+      const ADMIN_URL = 'admin-actualites.html';
+
+      const modal   = document.getElementById('adminLoginModal');
+      const form    = document.getElementById('adminLoginForm');
+      const pwd     = document.getElementById('adminPwd');
+      const errorEl = document.getElementById('adminLoginError');
+      const closeBtn = document.getElementById('adminLoginClose');
+      const logoEl  = document.getElementById('adminLogoTrigger');
+      if (!modal || !form) return;
+
+      function openModal() {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => pwd.focus(), 200);
+      }
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        pwd.value = '';
+        errorEl.textContent = '';
+      }
+
+      let tapCount = 0;
+      let tapTimer = null;
+      if (logoEl) {
+        logoEl.addEventListener('click', (e) => {
+          e.preventDefault();
+          tapCount++;
+          clearTimeout(tapTimer);
+          tapTimer = setTimeout(() => { tapCount = 0; }, 900);
+          if (tapCount >= 3) {
+            tapCount = 0;
+            openModal();
+          }
+        });
+      }
+
+      closeBtn?.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (pwd.value === ADMIN_PASSWORD) {
+          sessionStorage.setItem('ipss_admin', 'true');
+          window.location.href = ADMIN_URL;
+        } else {
+          errorEl.textContent = 'Mot de passe incorrect';
+          pwd.value = '';
+          pwd.focus();
+        }
+      });
     })();
   </script>
 </body>
