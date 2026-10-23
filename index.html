@@ -221,6 +221,42 @@
     .news-cta { margin-top: 48px; text-align: center; }
     .news-skeleton { min-height: 380px; background: linear-gradient(90deg, #ece9e2 25%, #f6f4ef 50%, #ece9e2 75%); background-size: 200% 100%; animation: skeleton 1.4s ease-in-out infinite; border: 1px solid var(--line); }
 
+    /* ============================================ */
+    /* ---- ACTUALITÉS : GRILLE ADAPTATIVE & MODAL ---- */
+    /* ============================================ */
+    /* Grille adaptative : 1, 2 ou 3 actualités */
+    .news-grid[data-count="1"] { grid-template-columns: minmax(0, 900px); justify-content: center; }
+    .news-grid[data-count="2"] { grid-template-columns: repeat(2, 1fr); }
+    .news-grid[data-count="1"] .news-card { flex-direction: row; }
+    .news-grid[data-count="1"] .news-media { height: auto; min-height: 320px; flex: 0 0 46%; }
+    .news-grid[data-count="1"] .news-body { justify-content: center; padding: 36px; }
+    .news-grid[data-count="1"] .news-body h3 { font-size: 22px; }
+    @media (max-width: 700px) {
+      .news-grid[data-count] { grid-template-columns: 1fr; }
+      .news-grid[data-count="1"] .news-card { flex-direction: column; }
+      .news-grid[data-count="1"] .news-media { min-height: 0; height: 200px; flex: none; }
+      .news-grid[data-count="1"] .news-body { padding: 22px 22px 24px; }
+    }
+
+    /* Extrait limité à 4 lignes pour garder des cartes égales */
+    .news-body p { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Bouton "Lire la suite" */
+    button.news-link { background: none; border: none; padding: 0; cursor: pointer; }
+
+    /* Dialogue détails */
+    .news-modal { position: fixed; inset: 0; background: rgba(8,18,38,.85); backdrop-filter: blur(8px); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease; }
+    .news-modal.open { opacity: 1; visibility: visible; }
+    .news-modal-content { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; position: relative; border-top: 6px solid var(--orange-600); box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: fadeUp .4s cubic-bezier(0.34,1.56,0.64,1); }
+    .news-modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: var(--white); border: none; cursor: pointer; font-size: 22px; font-weight: 700; line-height: 1; color: var(--navy-950); z-index: 2; box-shadow: 0 2px 10px rgba(0,0,0,.2); transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .news-modal-close:hover { background: var(--orange-600); color: var(--white); transform: rotate(90deg); }
+    .news-modal-img { width: 100%; max-height: 340px; object-fit: cover; display: block; }
+    .news-modal-body { padding: 28px 32px 34px; }
+    .news-modal-date { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-600); font-weight: 600; }
+    .news-modal-body h3 { font-size: 24px; margin: 10px 0 16px; color: var(--navy-950); }
+    .news-modal-text { white-space: pre-line; color: var(--ink-muted); font-size: 15.5px; line-height: 1.8; font-weight: 500; }
+    @media (max-width: 640px) { .news-modal { padding: 12px; } .news-modal-body { padding: 22px 20px 26px; } .news-modal-body h3 { font-size: 20px; } }
+
     /* ---- BANDEAU D'IMAGES DÉFILANT ---- */
     .image-marquee { background: var(--navy-950); padding: 40px 0; overflow: hidden; position: relative; border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .image-marquee::before, .image-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
@@ -981,13 +1017,28 @@
   </div>
 
   <!-- ============================================ -->
+  <!-- MODAL DÉTAIL ACTUALITÉ (Lire la suite) -->
+  <!-- ============================================ -->
+  <div class="news-modal" id="newsModal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <div class="news-modal-content">
+      <button class="news-modal-close" id="newsModalClose" aria-label="Fermer">×</button>
+      <img class="news-modal-img" id="newsModalImg" src="" alt="" />
+      <div class="news-modal-body">
+        <span class="news-modal-date" id="newsModalDate"></span>
+        <h3 id="newsModalTitle"></h3>
+        <div class="news-modal-text" id="newsModalText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
   <!-- SCRIPTS -->
   <!-- ============================================ -->
 
   <!-- Supabase CDN -->
   <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
-  <!-- Loader Actualités -->
+  <!-- Loader Actualités (nouvelle version avec modal) -->
   <script>
   (function initNews() {
     const SUPABASE_URL = 'https://otdiywrvzappbmjfkkyi.supabase.co';
@@ -997,30 +1048,67 @@
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const grid = document.getElementById('newsGrid');
     const cta  = document.getElementById('newsCta');
+    const modal = document.getElementById('newsModal');
     if (!grid) return;
 
     const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+    const esc = s => String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const fmt = iso => { const d = new Date(iso); return { d:String(d.getDate()).padStart(2,'0'), m:MONTHS[d.getMonth()], y:d.getFullYear() }; };
+    // Adapte le nom de colonne si besoin (content, body, contenu...)
+    const fullText = n => n.content || n.body || n.contenu || n.description || n.excerpt || '';
 
-    function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-    function fmt(iso){ const d=new Date(iso); return { d:String(d.getDate()).padStart(2,'0'), m:MONTHS[d.getMonth()], y:d.getFullYear() }; }
+    let items = [];
+    let lastFocus = null;
 
-    async function load(){
+    function openModal(i) {
+      const n = items[i]; if (!n) return;
+      const t = fmt(n.published_at);
+      const img = document.getElementById('newsModalImg');
+      if (n.image_url) { img.src = n.image_url; img.alt = n.title || ''; img.style.display = 'block'; }
+      else { img.style.display = 'none'; }
+      document.getElementById('newsModalDate').textContent = `${t.d} ${t.m} ${t.y}`;
+      document.getElementById('newsModalTitle').textContent = n.title || '';
+      document.getElementById('newsModalText').textContent = fullText(n);
+      lastFocus = document.activeElement;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('newsModalClose').focus();
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      lastFocus?.focus();
+    }
+
+    document.getElementById('newsModalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('.news-link');
+      if (btn) openModal(Number(btn.dataset.i));
+    });
+
+    async function load() {
       const { data, error } = await db
         .from('ipss_news')
-        .select('id,title,slug,excerpt,image_url,published_at')
+        .select('*')
         .eq('published', true)
         .order('published_at', { ascending: false })
         .limit(LIMIT);
 
       if (error || !data || data.length === 0) {
+        grid.removeAttribute('data-count');
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink-muted);font-family:IBM Plex Mono,monospace;font-size:13px;">Aucune actualité pour le moment.</p>';
         return;
       }
 
-      grid.innerHTML = data.map(n => {
+      items = data;
+      grid.dataset.count = data.length; // 1, 2 ou 3
+
+      grid.innerHTML = data.map((n, i) => {
         const t = fmt(n.published_at);
         const img = n.image_url || 'ipss/logo.jpg';
-        const link = n.slug ? `actualite-${encodeURIComponent(n.slug)}.html` : `actualites.html`;
         return `
           <article class="news-card reveal-scale">
             <div class="news-media">
@@ -1029,8 +1117,8 @@
             </div>
             <div class="news-body">
               <h3>${esc(n.title)}</h3>
-              <p>${esc(n.excerpt || '')}</p>
-              <a href="${link}" class="news-link">Lire la suite</a>
+              <p>${esc(n.excerpt || fullText(n))}</p>
+              <button type="button" class="news-link" data-i="${i}">Lire la suite</button>
             </div>
           </article>`;
       }).join('');
